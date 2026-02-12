@@ -45,7 +45,7 @@ dependencies {
 }
 
 mavenPublishing {
-    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral(automaticRelease = true)
     signAllPublications()
     configure(com.vanniktech.maven.publish.AndroidSingleVariantLibrary(variant = "release"))
     coordinates(property("GROUP").toString(), "runtime", property("VERSION_NAME").toString())

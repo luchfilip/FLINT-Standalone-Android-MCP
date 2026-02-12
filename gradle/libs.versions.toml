@@ -1,6 +1,6 @@
 [versions]
-kotlin = "2.1.0"
-ksp = "2.1.0-1.0.29"
+kotlin = "2.2.0"
+ksp = "2.2.0-2.0.2"
 agp = "8.7.2"
 composeBom = "2024.12.01"
 hilt = "2.53.1"
@@ -14,7 +14,7 @@ junit5 = "5.11.3"
 mockk = "1.13.13"
 datastore = "1.1.1"
 mcpKotlinSdk = "0.4.0"
-mavenPublish = "0.36.0"
+mavenPublish = "0.35.0"
 
 [libraries]
 # AndroidX

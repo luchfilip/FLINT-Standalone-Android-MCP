@@ -31,7 +31,7 @@ dependencies {
 }
 
 mavenPublishing {
-    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral(automaticRelease = true)
     signAllPublications()
     coordinates(property("GROUP").toString(), "compiler", property("VERSION_NAME").toString())
     pom {
