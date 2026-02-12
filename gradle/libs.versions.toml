@@ -14,6 +14,7 @@ junit5 = "5.11.3"
 mockk = "1.13.13"
 datastore = "1.1.1"
 mcpKotlinSdk = "0.4.0"
+mavenPublish = "0.36.0"
 
 [libraries]
 # AndroidX
@@ -76,3 +77,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

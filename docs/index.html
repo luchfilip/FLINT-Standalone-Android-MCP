@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACP - Android Capability Protocol</title>
+    <meta name="description" content="Give an LLM full control of an Android device through one MCP connection.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a1a;
+            background: #fafafa;
+            line-height: 1.6;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        header p {
+            font-size: 20px;
+            color: #555;
+            margin-top: 12px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+        }
+        .badge:hover { background: #e4e4e4; }
+
+        .install {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 48px 0;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .install .comment { color: #6a9955; }
+        .install .string { color: #ce9178; }
+
+        section { margin: 48px 0; }
+        section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        section p { color: #444; margin-bottom: 12px; }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+        .feature {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .feature h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .feature p { font-size: 14px; color: #666; margin: 0; }
+
+        .tools-list {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-top: 16px;
+        }
+        .tools-list h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+        .tools-list h3:first-child { margin-top: 0; }
+        .tools-list code {
+            display: inline-block;
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin: 2px 4px 2px 0;
+        }
+
+        .levels {
+            margin-top: 16px;
+        }
+        .level {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .level:last-child { border-bottom: none; }
+        .level strong { color: #1a1a1a; }
+        .level span { color: #666; font-size: 15px; }
+
+        .links {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .links a {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .links .primary {
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .links .primary:hover { background: #333; }
+        .links .secondary {
+            background: #fff;
+            color: #1a1a1a;
+            border: 1px solid #ddd;
+        }
+        .links .secondary:hover { background: #f5f5f5; }
+
+        footer {
+            text-align: center;
+            padding: 48px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        footer a { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ACP</h1>
+            <p>Give an LLM full control of an Android device through one MCP connection.</p>
+            <div class="badges">
+                <a class="badge" href="https://github.com/luchfilip/acp">GitHub</a>
+                <a class="badge" href="https://central.sonatype.com/namespace/dev.acpsdk">Maven Central</a>
+                <a class="badge" href="https://github.com/luchfilip/acp/blob/main/LICENSE">Apache 2.0</a>
+            </div>
+        </header>
+
+        <div class="install">
+            <span class="comment">// build.gradle.kts</span><br>
+            dependencies {<br>
+            &nbsp;&nbsp;implementation(<span class="string">"dev.acpsdk:runtime:1.0.0"</span>)<br>
+            &nbsp;&nbsp;ksp(<span class="string">"dev.acpsdk:compiler:1.0.0"</span>)<br>
+            }
+        </div>
+
+        <section>
+            <h2>What it does</h2>
+            <p>ACP is an Android hub app that runs an MCP server on-device. It exposes 25+ tools for tapping, swiping, typing, sending SMS, making calls, managing contacts, launching apps, toggling settings, and reading any screen.</p>
+            <p>It works with every app through accessibility. Apps that integrate the SDK get structured screen data, named actions, and direct tool calls instead of raw trees and coordinate guessing.</p>
+        </section>
+
+        <section>
+            <h2>Use cases</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Automated testing</h3>
+                    <p>LLM writes code, builds, installs, tests the actual UI. No mocking.</p>
+                </div>
+                <div class="feature">
+                    <h3>Device automation</h3>
+                    <p>Send messages, manage contacts, control apps through natural language.</p>
+                </div>
+                <div class="feature">
+                    <h3>E2E flow testing</h3>
+                    <p>Navigate real flows, verify screens, interact with elements. Catch what unit tests miss.</p>
+                </div>
+                <div class="feature">
+                    <h3>Integration testing</h3>
+                    <p>Test cross-app behavior on a real device. Launch A, switch to B, verify.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Built-in tools</h2>
+            <p>These work with every app on the device. No SDK needed.</p>
+            <div class="tools-list">
+                <h3>Device</h3>
+                <code>device.tap</code>
+                <code>device.swipe</code>
+                <code>device.type</code>
+                <code>device.scroll</code>
+                <code>device.screenshot</code>
+                <code>device.get_tree</code>
+                <code>device.press_key</code>
+                <code>device.long_press</code>
+
+                <h3>Communication</h3>
+                <code>sms.send</code>
+                <code>sms.read</code>
+                <code>call.dial</code>
+                <code>call.answer</code>
+                <code>contacts.search</code>
+                <code>contacts.create</code>
+                <code>notifications.list</code>
+                <code>notifications.reply</code>
+
+                <h3>System</h3>
+                <code>apps.launch</code>
+                <code>apps.list</code>
+                <code>apps.close</code>
+                <code>system.battery</code>
+                <code>system.wifi</code>
+                <code>system.bluetooth</code>
+                <code>system.volume</code>
+                <code>clipboard.get</code>
+                <code>clipboard.set</code>
+            </div>
+        </section>
+
+        <section>
+            <h2>SDK integration levels</h2>
+            <p>Apps don't need full integration. Each level adds capability.</p>
+            <div class="levels">
+                <div class="level"><strong>Level 0</strong> <span>- No SDK. Hub uses accessibility + screenshots. Works everywhere, just slower.</span></div>
+                <div class="level"><strong>Level 1</strong> <span>- Tools + screens. Hub can navigate and track which screen is active.</span></div>
+                <div class="level"><strong>Level 2</strong> <span>- Annotated content. Structured field names and values instead of raw text.</span></div>
+                <div class="level"><strong>Level 3</strong> <span>- Named actions. Invoke by name, not coordinates. Survives layout changes.</span></div>
+                <div class="level"><strong>Level 4</strong> <span>- Full annotation. Lists, items, overlays. Complete structured screen representation.</span></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Get started</h2>
+            <div class="links">
+                <a class="primary" href="https://github.com/luchfilip/acp">View on GitHub</a>
+                <a class="secondary" href="https://github.com/luchfilip/acp/blob/main/acp-full-spec-v1.md">Read the spec</a>
+                <a class="secondary" href="https://github.com/luchfilip/acp/blob/main/CONTRIBUTING.md">Contribute</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>ACP is open source under the <a href="https://github.com/luchfilip/acp/blob/main/LICENSE">Apache 2.0 license</a>.</p>
+        </footer>
+    </div>
+</body>
+</html>
