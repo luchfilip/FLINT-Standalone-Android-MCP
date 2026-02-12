@@ -9,8 +9,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #1a1a1a;
-            background: #fafafa;
+            color: #e0e0e0;
+            background: #0d0d0d;
             line-height: 1.6;
         }
         .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
@@ -23,10 +23,11 @@
             font-size: 48px;
             font-weight: 700;
             letter-spacing: -1px;
+            color: #f0f0f0;
         }
         header p {
             font-size: 20px;
-            color: #555;
+            color: #999;
             margin-top: 12px;
             max-width: 520px;
             margin-left: auto;
@@ -46,15 +47,17 @@
             border-radius: 6px;
             font-size: 13px;
             font-weight: 500;
-            background: #f0f0f0;
-            color: #333;
+            background: #1a1a1a;
+            color: #ccc;
             text-decoration: none;
+            border: 1px solid #2a2a2a;
         }
-        .badge:hover { background: #e4e4e4; }
+        .badge:hover { background: #252525; }
 
         .install {
-            background: #1a1a1a;
+            background: #141414;
             color: #e0e0e0;
+            border: 1px solid #2a2a2a;
             border-radius: 12px;
             padding: 24px 28px;
             margin: 48px 0;
@@ -70,8 +73,9 @@
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 16px;
+            color: #f0f0f0;
         }
-        section p { color: #444; margin-bottom: 12px; }
+        section p { color: #999; margin-bottom: 12px; }
 
         .features {
             display: grid;
@@ -81,8 +85,8 @@
         }
         @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
         .feature {
-            background: #fff;
-            border: 1px solid #e8e8e8;
+            background: #141414;
+            border: 1px solid #2a2a2a;
             border-radius: 10px;
             padding: 20px;
         }
@@ -90,12 +94,13 @@
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 6px;
+            color: #e0e0e0;
         }
-        .feature p { font-size: 14px; color: #666; margin: 0; }
+        .feature p { font-size: 14px; color: #888; margin: 0; }
 
         .tools-list {
-            background: #fff;
-            border: 1px solid #e8e8e8;
+            background: #141414;
+            border: 1px solid #2a2a2a;
             border-radius: 10px;
             padding: 20px 24px;
             margin-top: 16px;
@@ -105,18 +110,20 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #888;
+            color: #666;
             margin-bottom: 8px;
             margin-top: 16px;
         }
         .tools-list h3:first-child { margin-top: 0; }
         .tools-list code {
             display: inline-block;
-            background: #f5f5f5;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 13px;
             margin: 2px 4px 2px 0;
+            color: #ccc;
         }
 
         .levels {
@@ -124,11 +131,11 @@
         }
         .level {
             padding: 12px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #1a1a1a;
         }
         .level:last-child { border-bottom: none; }
-        .level strong { color: #1a1a1a; }
-        .level span { color: #666; font-size: 15px; }
+        .level strong { color: #e0e0e0; }
+        .level span { color: #888; font-size: 15px; }
 
         .links {
             display: flex;
@@ -145,24 +152,24 @@
             text-decoration: none;
         }
         .links .primary {
-            background: #1a1a1a;
-            color: #fff;
+            background: #f0f0f0;
+            color: #0d0d0d;
         }
-        .links .primary:hover { background: #333; }
+        .links .primary:hover { background: #ddd; }
         .links .secondary {
-            background: #fff;
-            color: #1a1a1a;
-            border: 1px solid #ddd;
+            background: #141414;
+            color: #ccc;
+            border: 1px solid #2a2a2a;
         }
-        .links .secondary:hover { background: #f5f5f5; }
+        .links .secondary:hover { background: #1a1a1a; }
 
         footer {
             text-align: center;
             padding: 48px 0;
-            color: #999;
+            color: #555;
             font-size: 14px;
         }
-        footer a { color: #666; }
+        footer a { color: #888; }
     </style>
 </head>
 <body>
