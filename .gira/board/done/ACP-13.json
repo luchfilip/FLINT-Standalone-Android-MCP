@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:46:02.170293",
+  "updated_at": "2026-02-12T05:49:04.136552Z",
+  "id": "ACP-13",
+  "uuid": "be3a343b-9cfc-4863-ba7f-44b76df0b647",
+  "title": "Semantic modifier extensions",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-004",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

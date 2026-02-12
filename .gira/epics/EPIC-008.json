@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:27:11.655053",
+  "updated_at": "2026-02-11T23:27:11.655084",
+  "id": "EPIC-008",
+  "title": "Hub ACP Integration",
+  "description": "Phase 7: App discovery, tool translation, ContentProvider routing",
+  "status": "draft",
+  "owner": "filipluch@gmail.com",
+  "labels": [],
+  "tickets": [
+    "ACP-40",
+    "ACP-41",
+    "ACP-42",
+    "ACP-43",
+    "ACP-44"
+  ],
+  "comments": [],
+  "comment_count": 0,
+  "attachments": [],
+  "attachment_count": 0,
+  "custom_fields": {}
+}

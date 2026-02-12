@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:29:00.866003",
+  "updated_at": "2026-02-12T05:36:38.930853Z",
+  "id": "ACP-2",
+  "uuid": "5495a116-9064-40b8-8c2b-bf0cc1f572b0",
+  "title": "Initialize Gradle monorepo with version catalog",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-001",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

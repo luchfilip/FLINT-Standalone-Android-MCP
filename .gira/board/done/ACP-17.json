@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:46:04.281057",
+  "updated_at": "2026-02-12T05:49:08.253296Z",
+  "id": "ACP-17",
+  "uuid": "d1190962-37dd-4588-9deb-bd68522e63a8",
+  "title": "Bundle/Map bridge utilities",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-004",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

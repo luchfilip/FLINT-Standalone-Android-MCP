@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-02-11T23:50:46.387603",
+  "updated_at": "2026-02-12T06:15:40.125316Z",
+  "id": "ACP-45",
+  "uuid": "b0c4ff17-52a3-43ff-a502-67997feb7ba4",
+  "title": "End-to-end integration test",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-009",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [
+    {
+      "created_at": "2026-02-12T00:15:34.584803",
+      "updated_at": "2026-02-12T00:15:34.584809",
+      "id": "20260212001534-df712688",
+      "ticket_id": "ACP-45",
+      "author": "filipluch@gmail.com",
+      "content": "Full build verification passed. compileDebugKotlin succeeds with only pre-existing deprecation warnings.",
+      "edited": false,
+      "edit_count": 0,
+      "is_ai_generated": false,
+      "attachments": [],
+      "attachment_count": 0
+    }
+  ],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 1,
+  "order": 0,
+  "custom_fields": {}
+}

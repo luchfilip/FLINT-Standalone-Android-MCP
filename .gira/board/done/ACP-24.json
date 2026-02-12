@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:13.941726",
+  "updated_at": "2026-02-12T05:57:43.640214Z",
+  "id": "ACP-24",
+  "uuid": "bf13b245-0847-4778-b9d8-525990d7d961",
+  "title": "Hub app scaffolding",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-006",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

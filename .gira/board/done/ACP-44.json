@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:43.564417",
+  "updated_at": "2026-02-12T06:09:59.232421Z",
+  "id": "ACP-44",
+  "uuid": "15faf61e-497f-40e9-af1c-1d0ba5f9bc6c",
+  "title": "ACP app management UI",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-008",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,24 @@
+{
+  "created_at": "2026-02-11T23:27:09.754623",
+  "updated_at": "2026-02-11T23:27:09.754653",
+  "id": "EPIC-004",
+  "title": "SDK Runtime",
+  "description": "Phase 3: Acp singleton, semantic modifiers, TreeWalker, ContentProvider",
+  "status": "draft",
+  "owner": "filipluch@gmail.com",
+  "labels": [],
+  "tickets": [
+    "ACP-12",
+    "ACP-13",
+    "ACP-14",
+    "ACP-15",
+    "ACP-16",
+    "ACP-17",
+    "ACP-18"
+  ],
+  "comments": [],
+  "comment_count": 0,
+  "attachments": [],
+  "attachment_count": 0,
+  "custom_fields": {}
+}

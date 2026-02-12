@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:46:02.698576",
+  "updated_at": "2026-02-12T05:49:05.151874Z",
+  "id": "ACP-14",
+  "uuid": "a97e1f66-f587-49c7-833e-ec32e2a9614d",
+  "title": "AcpTreeWalker",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-004",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

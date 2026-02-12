@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-02-11T23:50:47.936455",
+  "updated_at": "2026-02-12T06:15:41.589358Z",
+  "id": "ACP-48",
+  "uuid": "79ba0248-7f97-42c7-b435-b50e43e7a61e",
+  "title": "Hub permission flow polish",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-009",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [
+    {
+      "created_at": "2026-02-12T00:15:32.790833",
+      "updated_at": "2026-02-12T00:15:32.790834",
+      "id": "20260212001532-03f7d2bf",
+      "ticket_id": "ACP-48",
+      "author": "filipluch@gmail.com",
+      "content": "Created PermissionSetupScreen with guided permission flow for accessibility, notification listener, and runtime permissions. Added PermissionHelper utility. Added Setup button to HubScreen and navigation route in MainActivity.",
+      "edited": false,
+      "edit_count": 0,
+      "is_ai_generated": false,
+      "attachments": [],
+      "attachment_count": 0
+    }
+  ],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 1,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-02-11T23:50:47.409223",
+  "updated_at": "2026-02-12T06:15:41.113603Z",
+  "id": "ACP-47",
+  "uuid": "cf7113ef-4016-42ef-a66e-938412111927",
+  "title": "MCP server auth token",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-009",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [
+    {
+      "created_at": "2026-02-12T00:15:30.340846",
+      "updated_at": "2026-02-12T00:15:30.340847",
+      "id": "20260212001530-b6ff53cf",
+      "ticket_id": "ACP-47",
+      "author": "filipluch@gmail.com",
+      "content": "Polished MCP server auth: added StatusPages plugin for JSON 401 error bodies, set bearer realm, and added auth token status indicator to SettingsScreen.",
+      "edited": false,
+      "edit_count": 0,
+      "is_ai_generated": false,
+      "attachments": [],
+      "attachment_count": 0
+    }
+  ],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 1,
+  "order": 0,
+  "custom_fields": {}
+}

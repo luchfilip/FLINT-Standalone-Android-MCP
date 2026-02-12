@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:46:03.723635",
+  "updated_at": "2026-02-12T05:49:07.209200Z",
+  "id": "ACP-16",
+  "uuid": "f7560ad3-132f-4c05-b42f-772a1645a3e5",
+  "title": "AcpProvider ContentProvider",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-004",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

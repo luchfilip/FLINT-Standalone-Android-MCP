@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:27:10.227307",
+  "updated_at": "2026-02-11T23:27:10.227332",
+  "id": "EPIC-005",
+  "title": "Sample Music App",
+  "description": "Phase 4: Demo music app exercising all SDK features",
+  "status": "draft",
+  "owner": "filipluch@gmail.com",
+  "labels": [],
+  "tickets": [
+    "ACP-19",
+    "ACP-20",
+    "ACP-21",
+    "ACP-22",
+    "ACP-23"
+  ],
+  "comments": [],
+  "comment_count": 0,
+  "attachments": [],
+  "attachment_count": 0,
+  "custom_fields": {}
+}

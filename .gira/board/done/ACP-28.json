@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:16.216294",
+  "updated_at": "2026-02-12T05:57:45.700855Z",
+  "id": "ACP-28",
+  "uuid": "bc33170e-c965-4c64-8350-bf6036906b67",
+  "title": "Data persistence DataStore",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-006",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

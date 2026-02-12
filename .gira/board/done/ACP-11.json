@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:37:53.190623",
+  "updated_at": "2026-02-12T05:45:45.901995Z",
+  "id": "ACP-11",
+  "uuid": "0a5a2711-8c56-497d-a252-e8665e573469",
+  "title": "Comprehensive KSP processor tests",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-003",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

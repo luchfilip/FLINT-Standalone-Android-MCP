@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:14.602084",
+  "updated_at": "2026-02-12T05:57:44.143426Z",
+  "id": "ACP-25",
+  "uuid": "c02d9ccd-e940-43c8-86c2-a0f77d9b04fd",
+  "title": "Foreground Service + Ktor",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-006",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

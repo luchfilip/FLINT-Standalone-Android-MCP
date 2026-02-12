@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-02-11T22:55:28.075124",
+  "updated_at": "2026-02-11T22:55:28.075151",
+  "id": "ACP-1",
+  "uuid": "d293ba6c-b1f8-4461-9a15-cb25e2e68d81",
+  "title": "Test ticket - setup verification",
+  "description": "",
+  "status": "todo",
+  "type": "task",
+  "priority": "low",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

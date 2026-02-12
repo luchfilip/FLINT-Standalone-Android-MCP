@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:41.461390",
+  "updated_at": "2026-02-12T06:09:57.224459Z",
+  "id": "ACP-40",
+  "uuid": "54fbecb3-724f-48d0-bce3-e900723f17a4",
+  "title": "AcpScanner",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-008",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

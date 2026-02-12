@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:36:51.774970",
+  "updated_at": "2026-02-12T05:37:38.417769Z",
+  "id": "ACP-6",
+  "uuid": "f3d90fea-ab01-4fa4-806c-d6ea1f74d19e",
+  "title": "Unit tests for annotation retention",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-002",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,27 @@
+{
+  "created_at": "2026-02-11T23:27:11.170181",
+  "updated_at": "2026-02-11T23:27:11.170213",
+  "id": "EPIC-007",
+  "title": "Hub Device Tools",
+  "description": "Phase 6: 25+ device tools via AccessibilityService",
+  "status": "draft",
+  "owner": "filipluch@gmail.com",
+  "labels": [],
+  "tickets": [
+    "ACP-30",
+    "ACP-31",
+    "ACP-32",
+    "ACP-33",
+    "ACP-34",
+    "ACP-35",
+    "ACP-36",
+    "ACP-37",
+    "ACP-38",
+    "ACP-39"
+  ],
+  "comments": [],
+  "comment_count": 0,
+  "attachments": [],
+  "attachment_count": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:10.253159",
+  "updated_at": "2026-02-12T05:57:40.539502Z",
+  "id": "ACP-21",
+  "uuid": "2eb8822b-9c5d-4327-98b2-f96a97801b34",
+  "title": "HomeScreen + SearchResultsScreen",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-005",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

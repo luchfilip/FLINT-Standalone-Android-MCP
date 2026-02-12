@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:11.346596",
+  "updated_at": "2026-02-12T05:57:41.488389Z",
+  "id": "ACP-23",
+  "uuid": "910d16f3-c983-40ed-b313-caedb846bf43",
+  "title": "MiniPlayer overlay + E2E SDK test",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-005",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

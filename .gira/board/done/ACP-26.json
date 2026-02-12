@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:15.185145",
+  "updated_at": "2026-02-12T05:57:44.712420Z",
+  "id": "ACP-26",
+  "uuid": "a9ba584e-0e9d-4ec6-94e8-377981a62f14",
+  "title": "MCP server via Kotlin MCP SDK",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-006",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

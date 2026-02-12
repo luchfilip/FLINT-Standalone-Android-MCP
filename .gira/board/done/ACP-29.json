@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:16.724478",
+  "updated_at": "2026-02-12T05:57:46.165327Z",
+  "id": "ACP-29",
+  "uuid": "e3ed069e-5844-42cd-be7f-bdd4cd0969d1",
+  "title": "Logging infrastructure",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-006",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

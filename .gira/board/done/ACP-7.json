@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:37:50.845359",
+  "updated_at": "2026-02-12T05:45:43.245027Z",
+  "id": "ACP-7",
+  "uuid": "33121c72-7393-44f3-82b1-6692340fecff",
+  "title": "KSP SymbolProcessor for @AcpToolHost",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-003",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

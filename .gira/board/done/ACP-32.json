@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:30.133822",
+  "updated_at": "2026-02-12T06:04:35.091216Z",
+  "id": "ACP-32",
+  "uuid": "78e35cef-c434-4ac8-847d-de56953e1c19",
+  "title": "device.tap, long_press, swipe, type, press_key, scroll, get_tree",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-007",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

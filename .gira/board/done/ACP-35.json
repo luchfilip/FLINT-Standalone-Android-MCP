@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:50:31.666978",
+  "updated_at": "2026-02-12T06:04:36.476880Z",
+  "id": "ACP-35",
+  "uuid": "5f2c2506-85cd-4dc6-82b5-4cadc9925750",
+  "title": "contacts.search, contacts.create",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-007",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

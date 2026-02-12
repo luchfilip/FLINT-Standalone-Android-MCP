@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:37:51.429685",
+  "updated_at": "2026-02-12T05:45:43.815714Z",
+  "id": "ACP-8",
+  "uuid": "c4bd1e85-7734-4727-83be-8c12ba3de1ad",
+  "title": "Generate AcpRouter classes",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-003",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

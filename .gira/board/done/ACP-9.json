@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-02-11T23:37:52.032402",
+  "updated_at": "2026-02-12T05:45:44.358587Z",
+  "id": "ACP-9",
+  "uuid": "22a489d4-90a8-4870-92d2-7cef7b99d147",
+  "title": "Generate AcpSchemaHolder",
+  "description": "",
+  "status": "done",
+  "type": "feature",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-003",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-02-11T23:26:59.828929",
+  "updated_at": "2026-02-11T23:26:59.828963",
+  "id": "EPIC-001",
+  "title": "Project Scaffolding",
+  "description": "Phase 0: Initialize Gradle monorepo with all module skeletons",
+  "status": "draft",
+  "owner": "filipluch@gmail.com",
+  "labels": [],
+  "tickets": [
+    "ACP-2",
+    "ACP-3",
+    "ACP-4"
+  ],
+  "comments": [],
+  "comment_count": 0,
+  "attachments": [],
+  "attachment_count": 0,
+  "custom_fields": {}
+}

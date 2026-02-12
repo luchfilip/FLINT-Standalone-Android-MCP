@@ -1,0 +1,34 @@
+{
+  "swimlanes": [
+    {
+      "id": "todo",
+      "name": "Todo",
+      "auto_populate": false
+    },
+    {
+      "id": "in_progress",
+      "name": "In Progress",
+      "limit": 3,
+      "auto_populate": false
+    },
+    {
+      "id": "done",
+      "name": "Done",
+      "auto_populate": false
+    }
+  ],
+  "transitions": {
+    "todo": [
+      "in_progress",
+      "done"
+    ],
+    "in_progress": [
+      "done",
+      "todo"
+    ],
+    "done": [
+      "todo",
+      "in_progress"
+    ]
+  }
+}
