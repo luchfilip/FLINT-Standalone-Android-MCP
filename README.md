@@ -94,17 +94,13 @@ Add `acpList`, `acpItem`, `acpOverlay` throughout. Hub gets a complete structure
 
 ## Quick start
 
-### Build
-
-```bash
-git clone https://github.com/<org>/acp.git
-cd acp
-./gradlew build
-```
-
 ### Install the Hub
 
+Download the latest Hub APK from [Releases](https://github.com/luchfilip/acp/releases), or build from source:
+
 ```bash
+git clone https://github.com/luchfilip/acp.git
+cd acp
 ./gradlew :hub:app:installDebug
 ```
 
@@ -125,9 +121,46 @@ Create `.mcp.json` in your project (see `.mcp.json.example`):
 }
 ```
 
+### Add the SDK to your app
+
+The SDK is published on Maven Central as `dev.acpsdk`. Add it to your app's Gradle config:
+
+**settings.gradle.kts** (if not already present):
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
+```
+
+**build.gradle.kts** (project root):
+```kotlin
+plugins {
+    id("com.google.devtools.ksp") version "2.2.0-2.0.2" apply false
+}
+```
+
+**build.gradle.kts** (app module):
+```kotlin
+plugins {
+    id("com.google.devtools.ksp")
+}
+
+dependencies {
+    implementation("dev.acpsdk:runtime:1.0.0")
+    ksp("dev.acpsdk:compiler:1.0.0")
+}
+```
+
+The `runtime` module transitively includes `annotations`, so you don't need to add it separately.
+
 ### Try the sample app
 
 ```bash
+git clone https://github.com/luchfilip/acp.git
+cd acp
 ./gradlew :sample:musicapp:installDebug
 ```
 
