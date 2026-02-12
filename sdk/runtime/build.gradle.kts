@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.mcphub.acp.runtime"
+    namespace = "dev.acpsdk.runtime"
     compileSdk = 35
 
     defaultConfig {

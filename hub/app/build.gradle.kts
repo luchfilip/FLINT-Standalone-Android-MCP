@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.mcphub.acp.hub"
+    namespace = "dev.acpsdk.hub"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "dev.mcphub.acp.hub"
+        applicationId = "dev.acpsdk.hub"
         minSdk = 28
         targetSdk = 35
         versionCode = 1

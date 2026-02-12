@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.mcphub.acp.sample.music"
+    namespace = "dev.acpsdk.sample.music"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "dev.mcphub.acp.sample.music"
+        applicationId = "dev.acpsdk.sample.music"
         minSdk = 28
         targetSdk = 35
         versionCode = 1

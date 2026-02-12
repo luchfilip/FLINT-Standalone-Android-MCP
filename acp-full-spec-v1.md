@@ -80,12 +80,12 @@ musicapp.action          — invoke an annotated action on a UI element
 ```kotlin
 // build.gradle.kts
 plugins {
-    id("dev.mcphub.acp") version "1.0.0"
+    id("dev.acpsdk") version "1.0.0"
 }
 
 dependencies {
-    implementation("dev.mcphub:acp-sdk:1.0.0")
-    ksp("dev.mcphub:acp-compiler:1.0.0")
+    implementation("dev.acpsdk:runtime:1.0.0")
+    ksp("dev.acpsdk:compiler:1.0.0")
 }
 ```
 
@@ -672,7 +672,7 @@ class AcpProvider : ContentProvider() {
 ```xml
 <!-- Inside SDK's AndroidManifest.xml — merged automatically -->
 <provider
-    android:name="dev.mcphub.acp.AcpProvider"
+    android:name="dev.acpsdk.AcpProvider"
     android:authorities="${applicationId}.acp"
     android:exported="true" />
 ```
@@ -680,7 +680,7 @@ class AcpProvider : ContentProvider() {
 The Hub discovers providers via:
 
 ```kotlin
-val intent = Intent("dev.mcphub.acp.DISCOVER")
+val intent = Intent("dev.acpsdk.DISCOVER")
 val providers = packageManager.queryIntentContentProviders(intent, 0)
 ```
 
@@ -880,12 +880,12 @@ Here's everything a developer adds to make their music app ACP-enabled.
 
 ```kotlin
 plugins {
-    id("dev.mcphub.acp") version "1.0.0"
+    id("dev.acpsdk") version "1.0.0"
 }
 
 dependencies {
-    implementation("dev.mcphub:acp-sdk:1.0.0")
-    ksp("dev.mcphub:acp-compiler:1.0.0")
+    implementation("dev.acpsdk:runtime:1.0.0")
+    ksp("dev.acpsdk:compiler:1.0.0")
 }
 ```
 

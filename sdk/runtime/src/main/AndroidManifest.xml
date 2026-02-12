@@ -3,7 +3,7 @@
 
     <application>
         <provider
-            android:name="dev.mcphub.acp.provider.AcpProvider"
+            android:name="dev.acpsdk.provider.AcpProvider"
             android:authorities="${applicationId}.acp"
             android:exported="true" />
     </application>
