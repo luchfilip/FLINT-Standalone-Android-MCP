@@ -35,61 +35,56 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PermissionSetupScreen(
     onNavigateBack: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    viewModel: SetupViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    var accessibilityEnabled by remember { mutableStateOf(false) }
-    var notificationListenerEnabled by remember { mutableStateOf(false) }
-    var notificationPermission by remember { mutableStateOf(false) }
-    var smsPermission by remember { mutableStateOf(false) }
-    var callPermission by remember { mutableStateOf(false) }
-    var contactsPermission by remember { mutableStateOf(false) }
-    var overlayPermission by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            accessibilityEnabled = PermissionHelper.isAccessibilityEnabled()
-            notificationListenerEnabled = PermissionHelper.isNotificationListenerEnabled(context)
-            notificationPermission = PermissionHelper.isNotificationPermissionGranted(context)
-            smsPermission = PermissionHelper.isSmsPermissionGranted(context)
-            callPermission = PermissionHelper.isCallPermissionGranted(context)
-            contactsPermission = PermissionHelper.isContactsPermissionGranted(context)
-            overlayPermission = PermissionHelper.isOverlayPermissionGranted(context)
-            delay(1000)
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.onEvent(SetupUiEvent.CheckPermissions)
+            }
         }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    val totalSteps = 7
-    val completedSteps = listOf(
-        accessibilityEnabled,
-        notificationListenerEnabled,
-        notificationPermission,
-        smsPermission,
-        callPermission,
-        contactsPermission,
-        overlayPermission
-    ).count { it }
+    PermissionSetupContent(
+        uiState = uiState,
+        onEvent = viewModel::onEvent,
+        onNavigateBack = onNavigateBack,
+        onNavigateToSettings = onNavigateToSettings
+    )
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PermissionSetupContent(
+    uiState: SetupUiState,
+    onEvent: (SetupUiEvent) -> Unit,
+    onNavigateBack: () -> Unit,
+    onNavigateToSettings: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -112,134 +107,150 @@ fun PermissionSetupScreen(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            Text(
-                text = "Permission Setup",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = "$completedSteps of $totalSteps steps completed",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            SetupHeader(uiState = uiState)
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            SetupStepCard(
-                icon = Icons.Default.Accessibility,
-                title = "Accessibility Service",
-                description = "Required for screen reading, tap/swipe gestures, and device input control.",
-                isComplete = accessibilityEnabled,
-                buttonText = "Open Accessibility Settings",
-                onAction = { PermissionHelper.openAccessibilitySettings(context) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            SetupStepCard(
-                icon = Icons.Default.Notifications,
-                title = "Notification Listener",
-                description = "Required for reading and managing device notifications.",
-                isComplete = notificationListenerEnabled,
-                buttonText = "Open Notification Access",
-                onAction = { PermissionHelper.openNotificationListenerSettings(context) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            SetupStepCard(
-                icon = Icons.Default.Notifications,
-                title = "Notification Permission",
-                description = "Allows the Hub to show its foreground service notification.",
-                isComplete = notificationPermission,
-                buttonText = "Open Notification Settings",
-                onAction = { PermissionHelper.openAppNotificationSettings(context) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            SetupStepCard(
-                icon = Icons.Default.Sms,
-                title = "SMS Permissions",
-                description = "Required for sending and reading SMS messages.",
-                isComplete = smsPermission,
-                buttonText = "Open App Settings",
-                onAction = { PermissionHelper.openAppSettings(context) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            SetupStepCard(
-                icon = Icons.Default.Call,
-                title = "Phone Call Permission",
-                description = "Required for making phone calls.",
-                isComplete = callPermission,
-                buttonText = "Open App Settings",
-                onAction = { PermissionHelper.openAppSettings(context) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            SetupStepCard(
-                icon = Icons.Default.Contacts,
-                title = "Contacts Permission",
-                description = "Required for reading and managing contacts.",
-                isComplete = contactsPermission,
-                buttonText = "Open App Settings",
-                onAction = { PermissionHelper.openAppSettings(context) }
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            SetupStepCard(
-                icon = Icons.Default.Layers,
-                title = "Display Over Other Apps",
-                description = "Required for launching apps from the background.",
-                isComplete = overlayPermission,
-                buttonText = "Open Overlay Settings",
-                onAction = { PermissionHelper.openOverlaySettings(context) }
-            )
+            PermissionSteps(uiState = uiState, onEvent = onEvent)
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            Icons.Default.Tune,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Server Configuration",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Configure the MCP server port and authentication token.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    OutlinedButton(
-                        onClick = onNavigateToSettings,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text("Open Server Settings")
-                    }
-                }
-            }
+            ServerConfigCard(onNavigateToSettings = onNavigateToSettings)
 
             Spacer(modifier = Modifier.height(24.dp))
+        }
+    }
+}
+
+@Composable
+private fun SetupHeader(uiState: SetupUiState) {
+    Text(
+        text = "Permission Setup",
+        style = MaterialTheme.typography.headlineSmall,
+        fontWeight = FontWeight.Bold
+    )
+    Spacer(modifier = Modifier.height(4.dp))
+    Text(
+        text = "${uiState.completedSteps} of ${uiState.totalSteps} steps completed",
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+}
+
+@Composable
+private fun PermissionSteps(
+    uiState: SetupUiState,
+    onEvent: (SetupUiEvent) -> Unit
+) {
+    SetupStepCard(
+        icon = Icons.Default.Accessibility,
+        title = "Accessibility Service",
+        description = "Required for screen reading, tap/swipe gestures, and device input control.",
+        isComplete = uiState.accessibilityEnabled,
+        buttonText = "Open Accessibility Settings",
+        onAction = { onEvent(SetupUiEvent.OpenAccessibilitySettings) }
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    SetupStepCard(
+        icon = Icons.Default.Notifications,
+        title = "Notification Listener",
+        description = "Required for reading and managing device notifications.",
+        isComplete = uiState.notificationListenerEnabled,
+        buttonText = "Open Notification Access",
+        onAction = { onEvent(SetupUiEvent.OpenNotificationListenerSettings) }
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    SetupStepCard(
+        icon = Icons.Default.Notifications,
+        title = "Notification Permission",
+        description = "Allows the Hub to show its foreground service notification.",
+        isComplete = uiState.notificationPermission,
+        buttonText = "Open Notification Settings",
+        onAction = { onEvent(SetupUiEvent.OpenNotificationSettings) }
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    SetupStepCard(
+        icon = Icons.Default.Sms,
+        title = "SMS Permissions",
+        description = "Required for sending and reading SMS messages.",
+        isComplete = uiState.smsPermission,
+        buttonText = "Open App Settings",
+        onAction = { onEvent(SetupUiEvent.OpenAppSettings) }
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    SetupStepCard(
+        icon = Icons.Default.Call,
+        title = "Phone Call Permission",
+        description = "Required for making phone calls.",
+        isComplete = uiState.callPermission,
+        buttonText = "Open App Settings",
+        onAction = { onEvent(SetupUiEvent.OpenAppSettings) }
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    SetupStepCard(
+        icon = Icons.Default.Contacts,
+        title = "Contacts Permission",
+        description = "Required for reading and managing contacts.",
+        isComplete = uiState.contactsPermission,
+        buttonText = "Open App Settings",
+        onAction = { onEvent(SetupUiEvent.OpenAppSettings) }
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    SetupStepCard(
+        icon = Icons.Default.Layers,
+        title = "Display Over Other Apps",
+        description = "Required for launching apps from the background.",
+        isComplete = uiState.overlayPermission,
+        buttonText = "Open Overlay Settings",
+        onAction = { onEvent(SetupUiEvent.OpenOverlaySettings) }
+    )
+}
+
+@Composable
+private fun ServerConfigCard(onNavigateToSettings: () -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Default.Tune,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Server Configuration",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Configure the MCP server port and authentication token.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedButton(
+                onClick = onNavigateToSettings,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Open Server Settings")
+            }
         }
     }
 }
