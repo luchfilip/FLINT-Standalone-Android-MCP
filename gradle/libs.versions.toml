@@ -13,6 +13,7 @@ navigationCompose = "2.8.5"
 junit5 = "5.11.3"
 mockk = "1.13.13"
 datastore = "1.1.1"
+kotlinxCollectionsImmutable = "0.3.8"
 mcpKotlinSdk = "0.4.0"
 mavenPublish = "0.35.0"
 
@@ -54,6 +55,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 # Kotlinx
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version = "1.9.0" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 # KSP
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }

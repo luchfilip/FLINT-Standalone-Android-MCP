@@ -1,7 +1,6 @@
-package com.flintsdk.hub.ui
+package com.flintsdk.hub.ui.setup
 
 import android.Manifest
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,26 +11,18 @@ import androidx.core.content.ContextCompat
 import com.flintsdk.hub.accessibility.HubAccessibilityService
 import com.flintsdk.hub.notifications.HubNotificationListener
 
-/**
- * Utility for checking permission statuses and launching the appropriate system settings.
- */
 object PermissionHelper {
 
-    // --- Status checks ---
-
-    /** True when the accessibility service is connected. */
     fun isAccessibilityEnabled(): Boolean {
         return HubAccessibilityService.isConnected
     }
 
-    /** True when the notification listener service is enabled. */
     fun isNotificationListenerEnabled(context: Context): Boolean {
         val packageName = context.packageName
         val enabledPackages = NotificationManagerCompat.getEnabledListenerPackages(context)
         return enabledPackages.contains(packageName)
     }
 
-    /** True when POST_NOTIFICATIONS permission is granted (always true below API 33). */
     fun isNotificationPermissionGranted(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ContextCompat.checkSelfPermission(
@@ -42,7 +33,6 @@ object PermissionHelper {
         }
     }
 
-    /** True when both SEND_SMS and READ_SMS are granted. */
     fun isSmsPermissionGranted(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(
             context, Manifest.permission.SEND_SMS
@@ -52,28 +42,22 @@ object PermissionHelper {
             ) == PackageManager.PERMISSION_GRANTED
     }
 
-    /** True when CALL_PHONE is granted. */
     fun isCallPermissionGranted(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(
             context, Manifest.permission.CALL_PHONE
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    /** True when READ_CONTACTS is granted. */
     fun isContactsPermissionGranted(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(
             context, Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    /** True when SYSTEM_ALERT_WINDOW (display over other apps) is granted. */
     fun isOverlayPermissionGranted(context: Context): Boolean {
         return Settings.canDrawOverlays(context)
     }
 
-    // --- Settings intents ---
-
-    /** Open the accessibility settings screen. */
     fun openAccessibilitySettings(context: Context) {
         context.startActivity(
             Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
@@ -82,7 +66,6 @@ object PermissionHelper {
         )
     }
 
-    /** Open the notification listener settings screen. */
     fun openNotificationListenerSettings(context: Context) {
         context.startActivity(
             Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS).apply {
@@ -91,7 +74,6 @@ object PermissionHelper {
         )
     }
 
-    /** Open the app notification settings (for POST_NOTIFICATIONS). */
     fun openAppNotificationSettings(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startActivity(
@@ -105,7 +87,6 @@ object PermissionHelper {
         }
     }
 
-    /** Open the app-specific settings page (for runtime permissions). */
     fun openAppSettings(context: Context) {
         context.startActivity(
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
@@ -115,7 +96,6 @@ object PermissionHelper {
         )
     }
 
-    /** Open the overlay permission settings for this app. */
     fun openOverlaySettings(context: Context) {
         context.startActivity(
             Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,

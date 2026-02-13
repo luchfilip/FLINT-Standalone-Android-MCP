@@ -2,6 +2,9 @@ package com.flintsdk.hub.logging
 
 import java.time.Instant
 import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.concurrent.read
@@ -16,11 +19,23 @@ data class LogEntry(
     val message: String
 )
 
+interface Logger {
+    fun d(tag: String, message: String)
+    fun i(tag: String, message: String)
+    fun w(tag: String, message: String)
+    fun e(tag: String, message: String)
+    val recentLogs: StateFlow<List<LogEntry>>
+    fun clear()
+}
+
 @Singleton
-class HubLogger @Inject constructor() {
+class HubLogger @Inject constructor() : Logger {
 
     private val lock = ReentrantReadWriteLock()
     private val buffer = ArrayDeque<LogEntry>(MAX_ENTRIES)
+
+    private val _recentLogs = MutableStateFlow<List<LogEntry>>(emptyList())
+    override val recentLogs: StateFlow<List<LogEntry>> = _recentLogs.asStateFlow()
 
     fun log(level: LogLevel, tag: String, message: String) {
         val entry = LogEntry(
@@ -35,7 +50,8 @@ class HubLogger @Inject constructor() {
             }
             buffer.addLast(entry)
         }
-        // Also mirror to Android logcat
+        _recentLogs.value = lock.read { buffer.toList() }
+
         val logMessage = "[$tag] $message"
         when (level) {
             LogLevel.DEBUG -> android.util.Log.d(TAG, logMessage)
@@ -45,17 +61,18 @@ class HubLogger @Inject constructor() {
         }
     }
 
-    fun d(tag: String, message: String) = log(LogLevel.DEBUG, tag, message)
-    fun i(tag: String, message: String) = log(LogLevel.INFO, tag, message)
-    fun w(tag: String, message: String) = log(LogLevel.WARN, tag, message)
-    fun e(tag: String, message: String) = log(LogLevel.ERROR, tag, message)
+    override fun d(tag: String, message: String) = log(LogLevel.DEBUG, tag, message)
+    override fun i(tag: String, message: String) = log(LogLevel.INFO, tag, message)
+    override fun w(tag: String, message: String) = log(LogLevel.WARN, tag, message)
+    override fun e(tag: String, message: String) = log(LogLevel.ERROR, tag, message)
 
     fun getRecentLogs(): List<LogEntry> = lock.read {
         buffer.toList()
     }
 
-    fun clear() = lock.write {
+    override fun clear() = lock.write {
         buffer.clear()
+        _recentLogs.value = emptyList()
     }
 
     companion object {

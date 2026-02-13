@@ -1,4 +1,4 @@
-package com.flintsdk.sample.music.ui.screens
+package com.flintsdk.sample.music.ui.trackdetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,28 +25,43 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.flintsdk.Flint
-import com.flintsdk.sample.music.data.FakeData
 import com.flintsdk.semantics.flintAction
 import com.flintsdk.semantics.flintContent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackDetailScreen(
-    trackId: String,
+    onBack: () -> Unit,
+    viewModel: TrackDetailViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(TrackDetailUiEvent.LoadTrack)
+    }
+
+    TrackDetailContent(
+        uiState = uiState,
+        onEvent = viewModel::onEvent,
+        onBack = onBack
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TrackDetailContent(
+    uiState: TrackDetailUiState,
+    onEvent: (TrackDetailUiEvent) -> Unit,
     onBack: () -> Unit
 ) {
     Flint.screen("track_detail")
-
-    val track = FakeData.getTrack(trackId)
-    var isFavorite by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -67,6 +82,7 @@ fun TrackDetailScreen(
             )
         }
     ) { innerPadding ->
+        val track = uiState.track
         if (track == null) {
             Column(
                 modifier = Modifier
@@ -147,13 +163,13 @@ fun TrackDetailScreen(
                     }
 
                     IconButton(
-                        onClick = { isFavorite = !isFavorite },
+                        onClick = { onEvent(TrackDetailUiEvent.ToggleFavorite) },
                         modifier = Modifier.flintAction("favorite", "Toggle favorite")
                     ) {
                         Icon(
-                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                            contentDescription = if (isFavorite) "Unfavorite" else "Favorite",
-                            tint = if (isFavorite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                            imageVector = if (uiState.isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            contentDescription = if (uiState.isFavorite) "Unfavorite" else "Favorite",
+                            tint = if (uiState.isFavorite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(32.dp)
                         )
                     }

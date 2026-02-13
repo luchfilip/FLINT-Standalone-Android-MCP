@@ -1,4 +1,4 @@
-package com.flintsdk.sample.music.ui.screens
+package com.flintsdk.sample.music.ui.search
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,32 +23,52 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.flintsdk.Flint
-import com.flintsdk.sample.music.data.FakeData
 import com.flintsdk.semantics.flintAction
 import com.flintsdk.semantics.flintContent
 import com.flintsdk.semantics.flintItem
 import com.flintsdk.semantics.flintList
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchResultsScreen(
-    query: String,
+    onTrackClick: (String) -> Unit,
+    onBack: () -> Unit,
+    viewModel: SearchViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(SearchUiEvent.LoadResults)
+    }
+
+    SearchResultsContent(
+        uiState = uiState,
+        onTrackClick = onTrackClick,
+        onBack = onBack
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchResultsContent(
+    uiState: SearchUiState,
     onTrackClick: (String) -> Unit,
     onBack: () -> Unit
 ) {
     Flint.screen("search_results")
 
-    val results = FakeData.searchTracks(query)
-
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Search: $query") },
+                title = { Text("Search: ${uiState.query}") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -64,7 +84,7 @@ fun SearchResultsScreen(
             )
         }
     ) { innerPadding ->
-        if (results.isEmpty()) {
+        if (uiState.results.isEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -73,7 +93,7 @@ fun SearchResultsScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "No results found for \"$query\"",
+                    text = "No results found for \"${uiState.query}\"",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -85,7 +105,7 @@ fun SearchResultsScreen(
                     .padding(innerPadding)
                     .flintList("results", "Search results for songs")
             ) {
-                itemsIndexed(results) { index, track ->
+                itemsIndexed(uiState.results) { index, track ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -127,7 +147,7 @@ fun SearchResultsScreen(
                             modifier = Modifier.flintContent("duration")
                         )
                     }
-                    if (index < results.lastIndex) {
+                    if (index < uiState.results.lastIndex) {
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                     }
                 }

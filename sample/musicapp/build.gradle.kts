@@ -74,6 +74,7 @@ dependencies {
 
     // Kotlinx
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.collections.immutable)
 
     // Testing
     testImplementation(libs.junit5.api)

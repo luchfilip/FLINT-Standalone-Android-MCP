@@ -16,7 +16,7 @@ class MusicTools @Inject constructor(
         target = "search_results"
     )
     fun search(@FlintParam(description = "Search query") query: String) {
-        navigator.navigate("search/$query")
+        navigator.navigateToSearch(query)
     }
 
     @FlintTool(
@@ -25,7 +25,7 @@ class MusicTools @Inject constructor(
         target = "playlist_detail"
     )
     fun openPlaylist(@FlintParam(description = "Playlist ID") playlistId: String) {
-        navigator.navigate("playlist/$playlistId")
+        navigator.navigateToPlaylist(playlistId)
     }
 
     @FlintTool(
@@ -34,6 +34,6 @@ class MusicTools @Inject constructor(
         target = "home"
     )
     fun goHome() {
-        navigator.navigate("home")
+        navigator.navigateHome()
     }
 }

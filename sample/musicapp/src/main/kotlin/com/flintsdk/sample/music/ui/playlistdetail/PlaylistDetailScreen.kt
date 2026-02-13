@@ -1,6 +1,7 @@
-package com.flintsdk.sample.music.ui.screens
+package com.flintsdk.sample.music.ui.playlistdetail
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,33 +25,52 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.flintsdk.Flint
-import com.flintsdk.sample.music.data.FakeData
 import com.flintsdk.semantics.flintAction
 import com.flintsdk.semantics.flintContent
 import com.flintsdk.semantics.flintItem
 import com.flintsdk.semantics.flintList
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistDetailScreen(
-    playlistId: String,
+    onTrackClick: (String) -> Unit,
+    onBack: () -> Unit,
+    viewModel: PlaylistDetailViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(PlaylistDetailUiEvent.LoadPlaylist)
+    }
+
+    PlaylistDetailContent(
+        uiState = uiState,
+        onTrackClick = onTrackClick,
+        onBack = onBack
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PlaylistDetailContent(
+    uiState: PlaylistDetailUiState,
     onTrackClick: (String) -> Unit,
     onBack: () -> Unit
 ) {
     Flint.screen("playlist_detail")
 
-    val playlist = FakeData.getPlaylist(playlistId)
-    val tracks = FakeData.getTracksForPlaylist(playlistId)
-
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(playlist?.name ?: "Playlist") },
+                title = { Text(uiState.playlist?.name ?: "Playlist") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -71,6 +91,7 @@ fun PlaylistDetailScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
+            val playlist = uiState.playlist
             if (playlist != null) {
                 Column(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
@@ -89,7 +110,7 @@ fun PlaylistDetailScreen(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "${tracks.size} tracks",
+                        text = "${uiState.tracks.size} tracks",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -100,7 +121,7 @@ fun PlaylistDetailScreen(
                 LazyColumn(
                     modifier = Modifier.flintList("tracks", "Tracks in playlist")
                 ) {
-                    itemsIndexed(tracks) { index, track ->
+                    itemsIndexed(uiState.tracks) { index, track ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -150,7 +171,7 @@ fun PlaylistDetailScreen(
                                 modifier = Modifier.flintContent("duration")
                             )
                         }
-                        if (index < tracks.lastIndex) {
+                        if (index < uiState.tracks.lastIndex) {
                             HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                         }
                     }
@@ -159,7 +180,7 @@ fun PlaylistDetailScreen(
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Playlist not found",

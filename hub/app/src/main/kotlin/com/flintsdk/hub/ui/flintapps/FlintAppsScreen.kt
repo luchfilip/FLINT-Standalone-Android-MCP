@@ -1,4 +1,4 @@
-package com.flintsdk.hub.ui
+package com.flintsdk.hub.ui.flintapps
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
@@ -33,6 +33,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,49 +46,34 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import com.flintsdk.hub.flint.FlintApp
-import com.flintsdk.hub.flint.FlintIntegrationRegistrar
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class FlintAppsViewModel @Inject constructor(
-    private val flintIntegrationRegistrar: FlintIntegrationRegistrar
-) : ViewModel() {
-
-    val discoveredApps: StateFlow<List<FlintApp>> = flintIntegrationRegistrar.discoveredApps
-
-    private val _isScanning = MutableStateFlow(false)
-    val isScanning: StateFlow<Boolean> = _isScanning.asStateFlow()
-
-    fun rescan() {
-        viewModelScope.launch {
-            _isScanning.value = true
-            try {
-                flintIntegrationRegistrar.rescan()
-            } finally {
-                _isScanning.value = false
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlintAppsScreen(
     onNavigateBack: () -> Unit,
     viewModel: FlintAppsViewModel = hiltViewModel()
 ) {
-    val apps by viewModel.discoveredApps.collectAsStateWithLifecycle()
-    val isScanning by viewModel.isScanning.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(FlintAppsUiEvent.ObserveApps)
+    }
+
+    FlintAppsContent(
+        uiState = uiState,
+        onEvent = viewModel::onEvent,
+        onNavigateBack = onNavigateBack
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FlintAppsContent(
+    uiState: FlintAppsUiState,
+    onEvent: (FlintAppsUiEvent) -> Unit,
+    onNavigateBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -101,7 +87,7 @@ fun FlintAppsScreen(
                     }
                 },
                 actions = {
-                    if (isScanning) {
+                    if (uiState.isScanning) {
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .size(24.dp)
@@ -109,7 +95,7 @@ fun FlintAppsScreen(
                             strokeWidth = 2.dp
                         )
                     } else {
-                        IconButton(onClick = { viewModel.rescan() }) {
+                        IconButton(onClick = { onEvent(FlintAppsUiEvent.Rescan) }) {
                             Icon(Icons.Default.Refresh, contentDescription = "Rescan")
                         }
                     }
@@ -123,16 +109,15 @@ fun FlintAppsScreen(
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            // Summary
             Text(
-                text = "${apps.size} Flint app${if (apps.size != 1) "s" else ""} discovered",
+                text = "${uiState.apps.size} Flint app${if (uiState.apps.size != 1) "s" else ""} discovered",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            if (apps.isEmpty()) {
+            if (uiState.apps.isEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -165,7 +150,7 @@ fun FlintAppsScreen(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(apps, key = { it.packageName }) { app ->
+                    items(uiState.apps, key = { it.packageName }) { app ->
                         FlintAppCard(app)
                     }
                 }
@@ -232,7 +217,6 @@ private fun FlintAppCard(app: FlintApp) {
 
             AnimatedVisibility(visible = expanded) {
                 Column(modifier = Modifier.padding(top = 12.dp)) {
-                    // Schema info
                     Text(
                         text = "Protocol: ${app.schema.protocol} v${app.schema.version}",
                         style = MaterialTheme.typography.bodySmall,
@@ -258,12 +242,10 @@ private fun FlintAppCard(app: FlintApp) {
 
                     Spacer(modifier = Modifier.height(4.dp))
 
-                    // Standard tools (always present)
                     ToolRow(name = "get_screen", description = "Get current screen name")
                     ToolRow(name = "read_screen", description = "Read screen content")
                     ToolRow(name = "action", description = "Invoke semantic action")
 
-                    // App-specific tools
                     for (tool in app.schema.tools) {
                         ToolRow(name = tool.name, description = tool.description)
                     }

@@ -114,8 +114,7 @@ class HubService : Service() {
             description = "Keeps the FLINT Hub MCP server running"
             setShowBadge(false)
         }
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+        (getSystemService(NotificationManager::class.java)).createNotificationChannel(channel)
     }
 
     private fun createNotification(): Notification {

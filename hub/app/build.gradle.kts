@@ -81,6 +81,7 @@ dependencies {
     // Kotlinx
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.collections.immutable)
 
     // MCP SDK
     implementation(libs.mcp.kotlin.sdk)

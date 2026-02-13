@@ -1,8 +1,6 @@
-package com.flintsdk.hub.ui
+package com.flintsdk.hub.ui.setup
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +22,7 @@ import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Sms
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -51,13 +50,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
-/**
- * Guided setup screen that walks users through enabling all required
- * permissions and services for the FLINT Hub to function correctly.
- *
- * Each step shows its current status (done/pending), a description,
- * and an action button to open the relevant system settings.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PermissionSetupScreen(
@@ -66,7 +58,6 @@ fun PermissionSetupScreen(
 ) {
     val context = LocalContext.current
 
-    // Permission states - refreshed periodically
     var accessibilityEnabled by remember { mutableStateOf(false) }
     var notificationListenerEnabled by remember { mutableStateOf(false) }
     var notificationPermission by remember { mutableStateOf(false) }
@@ -75,7 +66,6 @@ fun PermissionSetupScreen(
     var contactsPermission by remember { mutableStateOf(false) }
     var overlayPermission by remember { mutableStateOf(false) }
 
-    // Periodically refresh permission states (e.g. user returns from settings)
     LaunchedEffect(Unit) {
         while (true) {
             accessibilityEnabled = PermissionHelper.isAccessibilityEnabled()
@@ -122,7 +112,6 @@ fun PermissionSetupScreen(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Progress summary
             Text(
                 text = "Permission Setup",
                 style = MaterialTheme.typography.headlineSmall,
@@ -139,7 +128,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Step 1: Accessibility Service
             SetupStepCard(
                 icon = Icons.Default.Accessibility,
                 title = "Accessibility Service",
@@ -151,7 +139,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Step 2: Notification Listener
             SetupStepCard(
                 icon = Icons.Default.Notifications,
                 title = "Notification Listener",
@@ -163,7 +150,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Step 3: POST_NOTIFICATIONS
             SetupStepCard(
                 icon = Icons.Default.Notifications,
                 title = "Notification Permission",
@@ -175,7 +161,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Step 4: SMS
             SetupStepCard(
                 icon = Icons.Default.Sms,
                 title = "SMS Permissions",
@@ -187,7 +172,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Step 5: Call
             SetupStepCard(
                 icon = Icons.Default.Call,
                 title = "Phone Call Permission",
@@ -199,7 +183,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Step 6: Contacts
             SetupStepCard(
                 icon = Icons.Default.Contacts,
                 title = "Contacts Permission",
@@ -211,7 +194,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Step 7: Display Over Other Apps
             SetupStepCard(
                 icon = Icons.Default.Layers,
                 title = "Display Over Other Apps",
@@ -223,7 +205,6 @@ fun PermissionSetupScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Server configuration shortcut
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
@@ -309,7 +290,6 @@ private fun SetupStepCard(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                // Status indicator
                 Box(
                     modifier = Modifier
                         .size(12.dp)

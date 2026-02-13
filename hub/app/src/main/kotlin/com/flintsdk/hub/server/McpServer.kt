@@ -19,13 +19,15 @@ import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
-import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import io.ktor.server.sse.SSE
 import io.ktor.server.sse.sse
 import io.ktor.sse.ServerSentEvent
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -33,17 +35,6 @@ import kotlinx.serialization.json.JsonObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Embedded Ktor CIO server that serves MCP protocol over HTTP + SSE.
- *
- * Endpoints:
- *   GET  /health   - Health check
- *   GET  /sse      - SSE stream for MCP server-to-client communication
- *   POST /message  - MCP JSON-RPC messages from client
- *
- * Per the MCP SSE transport spec, JSON-RPC responses are sent back to
- * the client via SSE events (not in the HTTP POST response body).
- */
 @Singleton
 class McpServer @Inject constructor(
     private val mcpProtocol: McpProtocol,
@@ -59,13 +50,12 @@ class McpServer @Inject constructor(
         prettyPrint = false
     }
 
-    /** Flow for routing JSON-RPC responses from POST handler to SSE stream. */
     private val sseResponses = MutableSharedFlow<String>(extraBufferCapacity = 64)
 
     private var server: EmbeddedServer<*, *>? = null
 
-    val isRunning: Boolean
-        get() = server != null
+    private val _isRunning = MutableStateFlow(false)
+    val isRunning: StateFlow<Boolean> = _isRunning.asStateFlow()
 
     suspend fun start() {
         if (server != null) {
@@ -85,6 +75,7 @@ class McpServer @Inject constructor(
             it.start(wait = false)
         }
 
+        _isRunning.value = true
         logger.i(TAG, "MCP server started on $host:$port")
     }
 
@@ -93,6 +84,7 @@ class McpServer @Inject constructor(
             logger.i(TAG, "Stopping MCP server")
             it.stop(gracePeriodMillis = 1000, timeoutMillis = 3000)
             server = null
+            _isRunning.value = false
             logger.i(TAG, "MCP server stopped")
         }
     }
@@ -139,8 +131,6 @@ class McpServer @Inject constructor(
                         "status" to "ok",
                         "server" to "flint-hub",
                         "tools" to mcpProtocol.let {
-                            // Access tool count via the protocol's registry is indirect;
-                            // just return a simple health payload.
                             "available"
                         }
                     )
@@ -161,13 +151,10 @@ class McpServer @Inject constructor(
         sse("/sse") {
             logger.i(TAG, "SSE client connected")
 
-            // MCP SSE transport: send endpoint event so client knows where to POST.
             send(ServerSentEvent(data = "/message", event = "endpoint"))
             logger.d(TAG, "Sent endpoint event: /message")
 
             try {
-                // Collect both JSON-RPC responses and protocol notifications,
-                // forwarding them to the client over SSE.
                 coroutineScope {
                     launch {
                         sseResponses.collect { data ->
@@ -202,7 +189,6 @@ class McpServer @Inject constructor(
                     sseResponses.emit(responseText)
                 }
 
-                // MCP SSE transport: POST returns accepted, response goes via SSE.
                 call.respond(HttpStatusCode.Accepted)
             } catch (e: Exception) {
                 logger.e(TAG, "Error processing message: ${e.message}")

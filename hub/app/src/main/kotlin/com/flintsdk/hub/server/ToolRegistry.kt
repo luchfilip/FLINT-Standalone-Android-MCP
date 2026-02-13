@@ -1,47 +1,30 @@
 package com.flintsdk.hub.server
 
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.json.JsonObject
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Represents a single piece of content returned by a tool execution.
- */
 sealed class ToolContent {
     data class TextContent(val text: String) : ToolContent()
     data class ImageContent(val data: String, val mimeType: String) : ToolContent()
 }
 
-/**
- * Result of a tool execution.
- */
 data class ToolResult(
     val content: List<ToolContent>,
     val isError: Boolean = false
 )
 
-/**
- * Interface that all hub tools must implement.
- */
 interface HubTool {
-    /** Namespaced tool name, e.g. "device.screenshot" or "musicapp.search" */
     val name: String
-
-    /** Human-readable description of the tool */
     val description: String
-
-    /** JSON Schema describing the expected input parameters */
     val inputSchema: JsonObject
-
-    /** Execute the tool with the given parameters */
     suspend fun execute(params: JsonObject): ToolResult
 }
 
-/**
- * Dynamic registry for managing MCP tools.
- * Tools are namespaced (e.g., "device.screenshot", "musicapp.search").
- */
 @Singleton
 class ToolRegistry @Inject constructor() {
 
@@ -50,14 +33,19 @@ class ToolRegistry @Inject constructor() {
     @Volatile
     var onToolsChanged: (() -> Unit)? = null
 
+    private val _toolCount = MutableStateFlow(0)
+    val toolCount: StateFlow<Int> = _toolCount.asStateFlow()
+
     fun registerTool(tool: HubTool) {
         tools[tool.name] = tool
+        _toolCount.value = tools.size
         onToolsChanged?.invoke()
     }
 
     fun removeTool(name: String): Boolean {
         val removed = tools.remove(name) != null
         if (removed) {
+            _toolCount.value = tools.size
             onToolsChanged?.invoke()
         }
         return removed
@@ -71,6 +59,7 @@ class ToolRegistry @Inject constructor() {
 
     fun clear() {
         tools.clear()
+        _toolCount.value = 0
         onToolsChanged?.invoke()
     }
 }
