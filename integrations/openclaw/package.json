@@ -1,0 +1,44 @@
+{
+  "name": "openclaw-flint",
+  "version": "0.1.0",
+  "description": "OpenClaw plugin for Flint Hub. Control Android devices through Flint's on-device MCP server.",
+  "license": "Apache-2.0",
+  "keywords": [
+    "openclaw",
+    "flint",
+    "android",
+    "mobile",
+    "device-control",
+    "mcp",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AcpLabs/flint",
+    "directory": "integrations/openclaw"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "typescript": "^5.7.0"
+  },
+  "openclaw": {
+    "extensions": "./dist/index.js"
+  }
+}

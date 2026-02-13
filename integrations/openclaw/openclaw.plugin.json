@@ -1,0 +1,35 @@
+{
+  "$schema": "https://openclaw.ai/schemas/plugin.json",
+  "name": "openclaw-flint",
+  "displayName": "Flint Hub - Android Device Control",
+  "description": "Control your Android phone through Flint Hub's on-device MCP server. Tap, swipe, read screen, manage apps, send SMS, handle calls, and more. No laptop, USB or ADB needed.",
+  "version": "0.1.0",
+  "config": {
+    "host": {
+      "type": "string",
+      "description": "Phone IP address where Flint Hub is running (e.g. 192.168.1.42)",
+      "required": true
+    },
+    "port": {
+      "type": "number",
+      "description": "MCP server port",
+      "default": 8080
+    },
+    "authToken": {
+      "type": "string",
+      "description": "Bearer token for authentication (must match Hub's configured token)",
+      "required": false,
+      "secret": true
+    },
+    "toolPrefix": {
+      "type": "boolean",
+      "description": "Prefix all tool names with flint_ to avoid collisions",
+      "default": true
+    },
+    "reconnectIntervalMs": {
+      "type": "number",
+      "description": "Milliseconds between reconnection attempts",
+      "default": 5000
+    }
+  }
+}
