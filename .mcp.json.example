@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "acp-hub": {
+    "flint-hub": {
       "type": "sse",
       "url": "http://<DEVICE_IP>:8080/sse"
     }
