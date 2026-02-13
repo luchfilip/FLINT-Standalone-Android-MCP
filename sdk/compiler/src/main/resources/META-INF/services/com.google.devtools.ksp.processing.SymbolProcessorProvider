@@ -1,1 +1,1 @@
-dev.acpsdk.compiler.AcpProcessorProvider
+com.flintsdk.compiler.FlintProcessorProvider

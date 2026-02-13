@@ -1,6 +1,6 @@
 # AGENTS.md - Gira Usage Guide for AI Agents
 
-This guide provides comprehensive instructions for AI agents working with Gira, the Git-native project management tool, specifically for the **ACP** project.
+This guide provides comprehensive instructions for AI agents working with Gira, the Git-native project management tool, specifically for the **Flint** project.
 
 ## 🎯 What is Gira?
 
@@ -113,16 +113,16 @@ todo → in_progress → done
 gira ticket create "Fix authentication login failures" --type bug --priority high --status backlog
 
 # 2. Start work (move to in-progress)
-gira ticket move ACP-1 in_progress --force
+gira ticket move Flint-1 in_progress --force
 
 # 3. Add progress comment
-gira comment add ACP-1 -c "Investigated JWT token expiration issue"
+gira comment add Flint-1 -c "Investigated JWT token expiration issue"
 
 # 4. Complete work
-gira ticket move ACP-1 done --force
+gira ticket move Flint-1 done --force
 
 # 5. Verify completion
-gira ticket show ACP-1
+gira ticket show Flint-1
 ```
 
 ### Epic Management Workflow
@@ -146,10 +146,10 @@ gira ticket create "Setup database schema" --type task --priority high --status 
 gira ticket create "Implement user CRUD operations" --type feature --priority medium --status backlog
 
 # Add dependency relationship
-gira ticket add-dep ACP-2 ACP-1
+gira ticket add-dep Flint-2 Flint-1
 
 # Check dependency
-gira ticket deps ACP-2
+gira ticket deps Flint-2
 ```
 
 ## 📝 Git Integration
@@ -363,7 +363,7 @@ gira board --format json
 | "Invalid status 'todo'" | Use `backlog` instead |
 | "Invalid status 'review'" | Use `done` instead |
 | Command hangs on confirmation | Add `--force` flag or use `echo "y" \|` |
-| "No such ticket" | Check ticket ID format (ACP-123) |
+| "No such ticket" | Check ticket ID format (Flint-123) |
 | Interactive command issues | Use `--force` flags for automation |
 
 ## ✅ Command Verification

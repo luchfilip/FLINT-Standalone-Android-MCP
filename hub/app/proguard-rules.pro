@@ -1,4 +1,4 @@
-# ACP Hub ProGuard Rules
+# FLINT Hub ProGuard Rules
 -keepattributes *Annotation*
 
 # Ktor

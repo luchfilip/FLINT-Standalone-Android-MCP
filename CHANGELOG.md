@@ -8,9 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- **ACP SDK Annotations** (`sdk/annotations`): Kotlin annotations (`@AcpTool`, `@AcpScreen`, `@AcpAction`, `@AcpSemanticTree`) for declaring app capabilities to the Hub.
-- **ACP SDK Compiler** (`sdk/compiler`): KSP annotation processor that generates `acp-manifest.json` at build time, describing all tools, screens, and semantic actions an app exposes.
-- **ACP SDK Runtime** (`sdk/runtime`): Android library providing `AcpProvider` (ContentProvider-based discovery), `AcpActionInvoker`, `AcpTreeWalker`, and data models for runtime communication between Hub and ACP-enabled apps.
+- **Flint SDK Annotations** (`sdk/annotations`): Kotlin annotations (`@FlintTool`, `@FlintScreen`, `@FlintAction`, `@FlintSemanticTree`) for declaring app capabilities to the Hub.
+- **Flint SDK Compiler** (`sdk/compiler`): KSP annotation processor that generates `flint-manifest.json` at build time, describing all tools, screens, and semantic actions an app exposes.
+- **Flint SDK Runtime** (`sdk/runtime`): Android library providing `FlintProvider` (ContentProvider-based discovery), `FlintActionInvoker`, `FlintTreeWalker`, and data models for runtime communication between Hub and Flint-enabled apps.
 - **Hub Application** (`hub/app`): Android app running an embedded Ktor MCP server over HTTP/SSE. Includes:
   - Foreground service with persistent notification
   - AccessibilityService for universal screen reading and gesture dispatch
@@ -19,8 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Communication tools: SMS, calls, contacts, notifications
   - System tools: battery, Wi-Fi, Bluetooth, volume, clipboard
   - App management tools: list, launch, close
-  - ACP app discovery via ContentProvider scanning
-  - Automatic tool registration for ACP-enabled apps (search, navigate, read screen, invoke actions)
-  - Jetpack Compose UI for status, permissions, ACP apps, and settings
-- **Sample Music App** (`sample/musicapp`): Demonstrates ACP integration with annotated tools (`search`, `open_playlist`), screens (`home`, `playlist_detail`, `track_detail`, `search_results`), and semantic UI elements. Built with Jetpack Compose and Hilt.
-- **Full protocol specification** (`acp-full-spec-v1.md`): Complete documentation of the ACP architecture, SDK integration guide, manifest format, and Hub behavior.
+  - Flint app discovery via ContentProvider scanning
+  - Automatic tool registration for Flint-enabled apps (search, navigate, read screen, invoke actions)
+  - Jetpack Compose UI for status, permissions, Flint apps, and settings
+- **Sample Music App** (`sample/musicapp`): Demonstrates Flint integration with annotated tools (`search`, `open_playlist`), screens (`home`, `playlist_detail`, `track_detail`, `search_results`), and semantic UI elements. Built with Jetpack Compose and Hilt.
+- **Full protocol specification** (`flint-full-spec-v1.md`): Complete documentation of the Flint architecture, SDK integration guide, manifest format, and Hub behavior.

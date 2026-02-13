@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "acp"
+rootProject.name = "flint"
 
 include(":sdk:annotations")
 include(":sdk:runtime")

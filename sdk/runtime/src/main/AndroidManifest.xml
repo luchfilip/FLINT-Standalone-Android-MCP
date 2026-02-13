@@ -3,8 +3,8 @@
 
     <application>
         <provider
-            android:name="dev.acpsdk.provider.AcpProvider"
-            android:authorities="${applicationId}.acp"
+            android:name="com.flintsdk.provider.FlintProvider"
+            android:authorities="${applicationId}.flint"
             android:exported="true" />
     </application>
 

@@ -1,6 +1,6 @@
 # GEMINI.md - Gira Usage Guide for Gemini
 
-This guide helps Gemini AI agents understand how to use Gira for project management and ticket tracking in the **ACP** project. Gemini's large context window makes it ideal for analyzing project-wide patterns and managing complex tasks.
+This guide helps Gemini AI agents understand how to use Gira for project management and ticket tracking in the **Flint** project. Gemini's large context window makes it ideal for analyzing project-wide patterns and managing complex tasks.
 
 ## 🎯 What is Gira?
 
@@ -86,9 +86,9 @@ gira ticket list --status backlog --format json | \
 ```bash
 # Basic bug fix workflow
 gira ticket create "Fix authentication issue" --type bug --priority high --status backlog
-gira ticket move ACP-1 in_progress --force
-gira comment add ACP-1 -c "Investigated root cause"
-gira ticket move ACP-1 done --force
+gira ticket move Flint-1 in_progress --force
+gira comment add Flint-1 -c "Investigated root cause"
+gira ticket move Flint-1 done --force
 
 # Epic creation and management
 gira epic create "User Management" --description "Complete user system"
@@ -347,7 +347,7 @@ gira ticket list --sprint SPRINT-001 --format json | \
 | "Invalid status 'todo'" | Use `backlog` instead |
 | "Invalid status 'review'" | Use `done` instead |
 | Command hangs on confirmation | Add `--force` flag or use `echo "y" \|` |
-| "No such ticket" | Check ticket ID format (ACP-123) |
+| "No such ticket" | Check ticket ID format (Flint-123) |
 | Interactive command issues | Use `--force` flags for automation |
 | JSON parsing errors | Ensure `--format json` is used |
 

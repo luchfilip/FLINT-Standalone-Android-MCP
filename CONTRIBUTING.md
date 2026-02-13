@@ -1,4 +1,4 @@
-# Contributing to ACP
+# Contributing to Flint
 
 Thank you for your interest in contributing to the Android Capability Protocol.
 
@@ -70,11 +70,11 @@ Scopes: `sdk`, `hub`, `sample`, `docs`
 
 | Module | Description |
 |--------|-------------|
-| `sdk/annotations` | ACP annotation definitions |
-| `sdk/compiler` | KSP processor generating `acp-manifest.json` |
+| `sdk/annotations` | Flint annotation definitions |
+| `sdk/compiler` | KSP processor generating `flint-manifest.json` |
 | `sdk/runtime` | Android runtime library (ContentProvider, models) |
 | `hub/app` | Hub Android app (MCP server, tools, UI) |
-| `sample/musicapp` | Example ACP-enabled app |
+| `sample/musicapp` | Example Flint-enabled app |
 
 ## Pull Requests
 

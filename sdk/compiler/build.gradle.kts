@@ -35,8 +35,8 @@ mavenPublishing {
     signAllPublications()
     coordinates(property("GROUP").toString(), "compiler", property("VERSION_NAME").toString())
     pom {
-        name.set("ACP Compiler")
-        description.set("KSP annotation processor for the Android Capability Protocol SDK")
+        name.set("Flint Compiler")
+        description.set("KSP annotation processor for the Flint SDK")
         url.set(property("POM_URL").toString())
         licenses {
             license {

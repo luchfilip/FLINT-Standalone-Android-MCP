@@ -27,8 +27,8 @@ mavenPublishing {
     signAllPublications()
     coordinates(property("GROUP").toString(), "annotations", property("VERSION_NAME").toString())
     pom {
-        name.set("ACP Annotations")
-        description.set("Annotations for the Android Capability Protocol SDK")
+        name.set("Flint Annotations")
+        description.set("Annotations for the Flint SDK")
         url.set(property("POM_URL").toString())
         licenses {
             license {

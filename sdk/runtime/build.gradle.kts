@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.acpsdk.runtime"
+    namespace = "com.flintsdk.runtime"
     compileSdk = 35
 
     defaultConfig {
@@ -50,8 +50,8 @@ mavenPublishing {
     configure(com.vanniktech.maven.publish.AndroidSingleVariantLibrary(variant = "release"))
     coordinates(property("GROUP").toString(), "runtime", property("VERSION_NAME").toString())
     pom {
-        name.set("ACP Runtime")
-        description.set("Android runtime library for the Android Capability Protocol SDK")
+        name.set("Flint Runtime")
+        description.set("Android runtime library for the Flint SDK")
         url.set(property("POM_URL").toString())
         licenses {
             license {

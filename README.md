@@ -176,7 +176,7 @@ Create `.mcp.json` in your project (see `.mcp.json.example`):
 
 ### Add the SDK to your app
 
-The SDK is published on Maven Central as `dev.flintsdk`. Add it to your app's Gradle config:
+The SDK is published on Maven Central as `com.flintsdk`. Add it to your app's Gradle config:
 
 **settings.gradle.kts** (if not already present):
 ```kotlin
@@ -202,8 +202,8 @@ plugins {
 }
 
 dependencies {
-    implementation("dev.flintsdk:runtime:1.0.0")
-    ksp("dev.flintsdk:compiler:1.0.0")
+    implementation("com.flintsdk:runtime:1.0.0")
+    ksp("com.flintsdk:compiler:1.0.0")
 }
 ```
 

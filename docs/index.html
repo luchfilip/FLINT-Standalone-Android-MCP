@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ACP - Android Capability Protocol</title>
+    <title>Flint SDK</title>
     <meta name="description" content="Give an LLM full control of an Android device through one MCP connection.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -175,26 +175,26 @@
 <body>
     <div class="container">
         <header>
-            <h1>ACP</h1>
+            <h1>Flint</h1>
             <p>Give an LLM full control of an Android device through one MCP connection.</p>
             <div class="badges">
-                <a class="badge" href="https://github.com/luchfilip/acp">GitHub</a>
-                <a class="badge" href="https://central.sonatype.com/namespace/dev.acpsdk">Maven Central</a>
-                <a class="badge" href="https://github.com/luchfilip/acp/blob/main/LICENSE">Apache 2.0</a>
+                <a class="badge" href="https://github.com/aspect-build/flint">GitHub</a>
+                <a class="badge" href="https://central.sonatype.com/namespace/com.flintsdk">Maven Central</a>
+                <a class="badge" href="https://github.com/aspect-build/flint/blob/main/LICENSE">Apache 2.0</a>
             </div>
         </header>
 
         <div class="install">
             <span class="comment">// build.gradle.kts</span><br>
             dependencies {<br>
-            &nbsp;&nbsp;implementation(<span class="string">"dev.acpsdk:runtime:1.0.0"</span>)<br>
-            &nbsp;&nbsp;ksp(<span class="string">"dev.acpsdk:compiler:1.0.0"</span>)<br>
+            &nbsp;&nbsp;implementation(<span class="string">"com.flintsdk:runtime:1.0.0"</span>)<br>
+            &nbsp;&nbsp;ksp(<span class="string">"com.flintsdk:compiler:1.0.0"</span>)<br>
             }
         </div>
 
         <section>
             <h2>What it does</h2>
-            <p>ACP is an Android hub app that runs an MCP server on-device. It exposes 25+ tools for tapping, swiping, typing, sending SMS, making calls, managing contacts, launching apps, toggling settings, and reading any screen.</p>
+            <p>Flint is an Android hub app that runs an MCP server on-device. It exposes 25+ tools for tapping, swiping, typing, sending SMS, making calls, managing contacts, launching apps, toggling settings, and reading any screen.</p>
             <p>It works with every app through accessibility. Apps that integrate the SDK get structured screen data, named actions, and direct tool calls instead of raw trees and coordinate guessing.</p>
         </section>
 
@@ -272,14 +272,14 @@
         <section>
             <h2>Get started</h2>
             <div class="links">
-                <a class="primary" href="https://github.com/luchfilip/acp">View on GitHub</a>
-                <a class="secondary" href="https://github.com/luchfilip/acp/blob/main/acp-full-spec-v1.md">Read the spec</a>
-                <a class="secondary" href="https://github.com/luchfilip/acp/blob/main/CONTRIBUTING.md">Contribute</a>
+                <a class="primary" href="https://github.com/aspect-build/flint">View on GitHub</a>
+                <a class="secondary" href="https://github.com/aspect-build/flint/blob/main/flint-full-spec-v1.md">Read the spec</a>
+                <a class="secondary" href="https://github.com/aspect-build/flint/blob/main/CONTRIBUTING.md">Contribute</a>
             </div>
         </section>
 
         <footer>
-            <p>ACP is open source under the <a href="https://github.com/luchfilip/acp/blob/main/LICENSE">Apache 2.0 license</a>.</p>
+            <p>Flint is open source under the <a href="https://github.com/aspect-build/flint/blob/main/LICENSE">Apache 2.0 license</a>.</p>
         </footer>
     </div>
 </body>

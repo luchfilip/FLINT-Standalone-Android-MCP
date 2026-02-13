@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.acpsdk.sample.music"
+    namespace = "com.flintsdk.sample.music"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "dev.acpsdk.sample.music"
+        applicationId = "com.flintsdk.sample.music"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    // ACP SDK
+    // Flint SDK
     implementation(project(":sdk:runtime"))
     ksp(project(":sdk:compiler"))
 

@@ -1,2 +1,2 @@
-# ACP Music App ProGuard Rules
+# Flint Music App ProGuard Rules
 -keepattributes *Annotation*

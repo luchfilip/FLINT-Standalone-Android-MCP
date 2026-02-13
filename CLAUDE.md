@@ -1,6 +1,6 @@
 # CLAUDE.md - Gira Usage Guide for Claude
 
-This guide helps Claude AI agents understand how to use Gira for project management and ticket tracking in the **ACP** project.
+This guide helps Claude AI agents understand how to use Gira for project management and ticket tracking in the **Flint** project.
 
 ## 🎯 What is Gira?
 
@@ -96,16 +96,16 @@ gira board --format json
 gira ticket create "Fix authentication login failures" --type bug --priority high --status backlog
 
 # 2. Start work (move to in-progress)
-gira ticket move ACP-1 in_progress --force
+gira ticket move Flint-1 in_progress --force
 
 # 3. Add progress comment
-gira comment add ACP-1 -c "Investigated JWT token expiration issue"
+gira comment add Flint-1 -c "Investigated JWT token expiration issue"
 
 # 4. Complete work
-gira ticket move ACP-1 done --force
+gira ticket move Flint-1 done --force
 
 # 5. Verify completion
-gira ticket show ACP-1
+gira ticket show Flint-1
 ```
 
 ### Epic Management Workflow
@@ -274,7 +274,7 @@ gira comment add TICKET-ID
 | "Invalid status 'todo'" | Use `backlog` instead |
 | "Invalid status 'review'" | Use `done` instead |
 | Command hangs on confirmation | Add `--force` flag or use `echo "y" \|` |
-| "No such ticket" | Check ticket ID format (ACP-123) |
+| "No such ticket" | Check ticket ID format (Flint-123) |
 | Interactive command issues | Use `--force` flags for automation |
 
 ## ✅ Command Verification

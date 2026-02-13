@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.acpsdk.hub"
+    namespace = "com.flintsdk.hub"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "dev.acpsdk.hub"
+        applicationId = "com.flintsdk.hub"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
