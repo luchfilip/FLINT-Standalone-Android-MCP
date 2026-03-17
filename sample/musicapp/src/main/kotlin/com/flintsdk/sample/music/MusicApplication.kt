@@ -6,6 +6,7 @@ import com.flintsdk.Flint
 import com.flintsdk.sample.music.di.AppNavigatorHolder
 import com.flintsdk.sample.music.tools.MusicTools
 import com.flintsdk.sample.music.tools.FlintRouter_MusicTools
+import com.flintsdk.sample.music.BuildConfig
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -16,7 +17,7 @@ class MusicApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Flint.init(this)
+        Flint.init(this, adbMode = BuildConfig.DEBUG)
 
         val musicTools = MusicTools(navigatorHolder)
         val router = FlintRouter_MusicTools(musicTools)

@@ -1,6 +1,8 @@
 package com.flintsdk.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonClassDiscriminator
 
 @Serializable
 data class FlintScreenSnapshot(
@@ -15,8 +17,10 @@ data class FlintContent(
 )
 
 @Serializable
+@JsonClassDiscriminator("_type")
 sealed class FlintElement {
     @Serializable
+    @SerialName("list")
     data class ListElement(
         val type: String = "list",
         val id: String,
@@ -25,6 +29,7 @@ sealed class FlintElement {
     ) : FlintElement()
 
     @Serializable
+    @SerialName("content")
     data class ContentElement(
         val type: String = "content",
         val key: String,
@@ -32,6 +37,7 @@ sealed class FlintElement {
     ) : FlintElement()
 
     @Serializable
+    @SerialName("action")
     data class ActionElement(
         val type: String = "action",
         val name: String,

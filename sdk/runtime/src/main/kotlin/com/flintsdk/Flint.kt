@@ -15,13 +15,17 @@ object Flint {
     lateinit var context: Context
         private set
 
+    var adbMode: Boolean = false
+        private set
+
     internal var currentScreen: String? = null
         private set
 
     private val handlers = CopyOnWriteArrayList<FlintToolHandler>()
 
-    fun init(context: Context) {
+    fun init(context: Context, adbMode: Boolean = false) {
         this.context = context.applicationContext
+        this.adbMode = adbMode
     }
 
     fun add(handler: FlintToolHandler) {

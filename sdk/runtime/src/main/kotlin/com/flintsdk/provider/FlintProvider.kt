@@ -2,14 +2,21 @@ package com.flintsdk.provider
 
 import android.content.ContentProvider
 import android.content.ContentValues
+import android.content.pm.ApplicationInfo
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.ParcelFileDescriptor
 import com.flintsdk.Flint
 import com.flintsdk.model.FlintScreenSnapshot
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -120,6 +127,125 @@ class FlintProvider : ContentProvider() {
         return Bundle().apply {
             putBoolean("success", success)
         }
+    }
+
+    // --- ADB mode: openFile() returns clean JSON via pipe PFD ---
+
+    private fun isAdbModeEnabled(): Boolean {
+        // Flint.adbMode is set in Application.onCreate(), but ContentProvider starts first.
+        // Fall back to checking the debuggable flag for cold-start ADB queries.
+        if (Flint.adbMode) return true
+        val appInfo = context?.applicationInfo ?: return false
+        return appInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+    }
+
+    override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
+        if (!isAdbModeEnabled()) return null
+
+        val method = uri.pathSegments.firstOrNull()
+            ?: return jsonToPfd("""{"error":"missing method in URI path"}""")
+
+        val result = try {
+            when (method) {
+                "get_schema" -> handleGetSchemaJson()
+                "get_screen" -> handleGetScreenJson()
+                "read_screen" -> handleReadScreenJson()
+                "call_tool" -> handleCallToolJson(uri)
+                "invoke_action" -> handleInvokeActionJson(uri)
+                else -> """{"error":"unknown method: $method"}"""
+            }
+        } catch (e: Exception) {
+            """{"error":"${e.message?.replace("\"", "\\\"")}"}"""
+        }
+
+        return jsonToPfd(result)
+    }
+
+    private fun handleGetSchemaJson(): String {
+        return try {
+            val schemaClass = Class.forName("com.flintsdk.generated.FlintSchemaHolder")
+            val instance = schemaClass.getDeclaredField("INSTANCE").get(null)
+            schemaClass.getDeclaredField("JSON").get(instance) as String
+        } catch (e: ClassNotFoundException) {
+            """{"error":"FlintSchemaHolder not found. Is KSP configured?"}"""
+        }
+    }
+
+    private fun handleGetScreenJson(): String {
+        val bundle = handleGetScreen()
+        return bundleToJson(bundle)
+    }
+
+    private fun handleReadScreenJson(): String {
+        val bundle = handleReadScreen()
+        val snapshotJson = bundle.getString("snapshot")
+        if (snapshotJson != null) return snapshotJson
+        return bundleToJson(bundle)
+    }
+
+    private fun handleCallToolJson(uri: Uri): String {
+        val toolName = uri.getQueryParameter("_tool")
+            ?: return """{"error":"missing _tool parameter"}"""
+
+        val extras = Bundle()
+        extras.putString("_tool", toolName)
+        for (name in uri.queryParameterNames) {
+            if (name != "_tool") {
+                extras.putString(name, uri.getQueryParameter(name))
+            }
+        }
+
+        val result = handleCallTool(extras)
+        return bundleToJson(result)
+    }
+
+    private fun handleInvokeActionJson(uri: Uri): String {
+        val actionName = uri.getQueryParameter("_action")
+            ?: return """{"error":"missing _action parameter"}"""
+
+        val extras = Bundle()
+        extras.putString("_action", actionName)
+        uri.getQueryParameter("_list_id")?.let { extras.putString("_list_id", it) }
+        uri.getQueryParameter("_item_index")?.let {
+            extras.putInt("_item_index", it.toInt())
+        }
+
+        val result = handleInvokeAction(extras)
+        return bundleToJson(result)
+    }
+
+    private fun bundleToJson(bundle: Bundle): String {
+        val map = mutableMapOf<String, JsonElement>()
+        for (key in bundle.keySet()) {
+            @Suppress("DEPRECATION")
+            val value = bundle.get(key)
+            map[key] = when (value) {
+                null -> JsonNull
+                is Boolean -> JsonPrimitive(value)
+                is Int -> JsonPrimitive(value)
+                is Long -> JsonPrimitive(value)
+                is Double -> JsonPrimitive(value)
+                is Float -> JsonPrimitive(value)
+                is String -> JsonPrimitive(value)
+                is ArrayList<*> -> JsonArray(value.map { JsonPrimitive(it?.toString()) })
+                else -> JsonPrimitive(value.toString())
+            }
+        }
+        return JsonObject(map).toString()
+    }
+
+    private fun jsonToPfd(jsonString: String): ParcelFileDescriptor {
+        val pipe = ParcelFileDescriptor.createPipe()
+        val readEnd = pipe[0]
+        val writeEnd = pipe[1]
+
+        Thread {
+            ParcelFileDescriptor.AutoCloseOutputStream(writeEnd).use { stream ->
+                stream.write(jsonString.toByteArray(Charsets.UTF_8))
+            }
+        }.start()
+
+        return readEnd
     }
 
     // Required ContentProvider methods — unused for Flint
