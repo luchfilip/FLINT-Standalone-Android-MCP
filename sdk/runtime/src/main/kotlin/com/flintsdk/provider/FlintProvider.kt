@@ -191,7 +191,8 @@ class FlintProvider : ContentProvider() {
         extras.putString("_tool", toolName)
         for (name in uri.queryParameterNames) {
             if (name != "_tool") {
-                extras.putString(name, uri.getQueryParameter(name))
+                val value = uri.getQueryParameter(name) ?: continue
+                putParsedValue(extras, name, value)
             }
         }
 
@@ -212,6 +213,14 @@ class FlintProvider : ContentProvider() {
 
         val result = handleInvokeAction(extras)
         return bundleToJson(result)
+    }
+
+    private fun putParsedValue(bundle: Bundle, key: String, value: String) {
+        value.toIntOrNull()?.let { bundle.putInt(key, it); return }
+        value.toLongOrNull()?.let { bundle.putLong(key, it); return }
+        value.toDoubleOrNull()?.let { bundle.putDouble(key, it); return }
+        if (value == "true" || value == "false") { bundle.putBoolean(key, value.toBoolean()); return }
+        bundle.putString(key, value)
     }
 
     private fun bundleToJson(bundle: Bundle): String {
