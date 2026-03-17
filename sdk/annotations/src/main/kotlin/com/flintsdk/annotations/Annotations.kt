@@ -16,7 +16,7 @@ annotation class FlintToolHost
 annotation class FlintTool(
     val name: String,
     val description: String,
-    val target: String
+    val target: String = ""
 )
 
 /**
@@ -29,10 +29,24 @@ annotation class FlintParam(
     val name: String = ""
 )
 
+data class FlintToolDescriptor(
+    val name: String,
+    val description: String,
+    val params: List<FlintParamDescriptor> = emptyList()
+)
+
+data class FlintParamDescriptor(
+    val name: String,
+    val type: String,       // "string", "integer", "number", "boolean"
+    val description: String,
+    val required: Boolean = true
+)
+
 /**
  * Platform-agnostic tool handler interface.
  * Uses Map instead of Bundle so annotations module stays pure Kotlin.
  */
 interface FlintToolHandler {
     fun onToolCall(name: String, params: Map<String, Any?>): Map<String, Any?>?
+    fun describeTools(): List<FlintToolDescriptor> = emptyList()
 }

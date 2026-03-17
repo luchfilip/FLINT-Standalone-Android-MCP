@@ -1,10 +1,13 @@
 package com.flintsdk
 
 import android.content.Context
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import com.flintsdk.annotations.FlintToolHandler
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
@@ -52,6 +55,53 @@ object Flint {
             if (result != null) return result
         }
         return null
+    }
+
+    @Composable
+    fun tools(block: FlintToolsScope.() -> Unit) {
+        val handler = remember(block) {
+            FlintToolsScope().apply(block).buildHandler()
+        }
+        DisposableEffect(handler) {
+            add(handler)
+            onDispose { remove(handler) }
+        }
+    }
+
+    internal fun registeredHandlers(): List<FlintToolHandler> = handlers.toList()
+
+    internal fun liveSchema(): String {
+        val allTools = handlers.flatMap { it.describeTools() }
+        val json = buildJsonObject {
+            put("protocol", "flint")
+            put("version", "2.0")
+            put("tools", buildJsonArray {
+                for (tool in allTools) {
+                    add(buildJsonObject {
+                        put("name", tool.name)
+                        put("description", tool.description)
+                        put("inputSchema", buildJsonObject {
+                            put("type", "object")
+                            put("properties", buildJsonObject {
+                                for (param in tool.params) {
+                                    put(param.name, buildJsonObject {
+                                        put("type", param.type)
+                                        put("description", param.description)
+                                    })
+                                }
+                            })
+                            put("required", buildJsonArray {
+                                for (param in tool.params.filter { it.required }) {
+                                    add(kotlinx.serialization.json.JsonPrimitive(param.name))
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        }
+        return kotlinx.serialization.json.Json { prettyPrint = true }
+            .encodeToString(kotlinx.serialization.json.JsonObject.serializer(), json)
     }
 
     internal fun getScreenName(): String? = currentScreen

@@ -62,6 +62,11 @@ fun TrackDetailContent(
     onBack: () -> Unit
 ) {
     Flint.screen("track_detail")
+    Flint.tools {
+        tool("go_back", "Go back to previous screen") {
+            action { onBack(); null }
+        }
+    }
 
     Scaffold(
         topBar = {

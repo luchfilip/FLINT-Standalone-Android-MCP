@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.ParcelFileDescriptor
+import android.view.Choreographer
 import com.flintsdk.Flint
 import com.flintsdk.model.FlintScreenSnapshot
 import kotlinx.serialization.json.Json
@@ -49,14 +50,8 @@ class FlintProvider : ContentProvider() {
     }
 
     private fun handleGetSchema(): Bundle {
-        return try {
-            val schemaClass = Class.forName("com.flintsdk.generated.FlintSchemaHolder")
-            val instance = schemaClass.getDeclaredField("INSTANCE").get(null)
-            val schemaJson = schemaClass.getDeclaredField("JSON").get(instance) as String
-            Bundle().apply { putString("schema", schemaJson) }
-        } catch (e: ClassNotFoundException) {
-            Bundle().apply { putString("_error", "FlintSchemaHolder not found. Is KSP configured?") }
-        }
+        val schemaJson = Flint.liveSchema()
+        return Bundle().apply { putString("schema", schemaJson) }
     }
 
     private fun handleGetScreen(): Bundle {
@@ -162,13 +157,7 @@ class FlintProvider : ContentProvider() {
     }
 
     private fun handleGetSchemaJson(): String {
-        return try {
-            val schemaClass = Class.forName("com.flintsdk.generated.FlintSchemaHolder")
-            val instance = schemaClass.getDeclaredField("INSTANCE").get(null)
-            schemaClass.getDeclaredField("JSON").get(instance) as String
-        } catch (e: ClassNotFoundException) {
-            """{"error":"FlintSchemaHolder not found. Is KSP configured?"}"""
-        }
+        return Flint.liveSchema()
     }
 
     private fun handleGetScreenJson(): String {
@@ -177,27 +166,75 @@ class FlintProvider : ContentProvider() {
     }
 
     private fun handleReadScreenJson(): String {
-        val bundle = handleReadScreen()
-        val snapshotJson = bundle.getString("snapshot")
-        if (snapshotJson != null) return snapshotJson
-        return bundleToJson(bundle)
+        val screen = Flint.getScreenName() ?: "unknown"
+        val toolNames = Flint.registeredHandlers()
+            .flatMap { it.describeTools() }
+            .map { it.name }
+        val snapshot = FlintTreeWalker.snapshot()
+        return FlintTextRenderer.render(screen, toolNames, snapshot)
     }
 
     private fun handleCallToolJson(uri: Uri): String {
         val toolName = uri.getQueryParameter("_tool")
             ?: return """{"error":"missing _tool parameter"}"""
 
-        val extras = Bundle()
-        extras.putString("_tool", toolName)
+        val params = mutableMapOf<String, Any?>()
         for (name in uri.queryParameterNames) {
             if (name != "_tool") {
                 val value = uri.getQueryParameter(name) ?: continue
-                putParsedValue(extras, name, value)
+                params[name] = parseValue(value)
             }
         }
 
-        val result = handleCallTool(extras)
-        return bundleToJson(result)
+        // Execute tool on main thread
+        val resultHolder = arrayOfNulls<Map<String, Any?>>(1)
+        val toolLatch = CountDownLatch(1)
+
+        mainHandler.post {
+            try {
+                resultHolder[0] = Flint.routeTool(toolName, params)
+            } finally {
+                toolLatch.countDown()
+            }
+        }
+
+        toolLatch.await(10, TimeUnit.SECONDS)
+        val result = resultHolder[0]
+            ?: return """{"error":"unknown tool: $toolName"}"""
+
+        // Wait one frame for Compose to settle after navigation
+        val frameLatch = CountDownLatch(1)
+        mainHandler.post {
+            Choreographer.getInstance().postFrameCallback { frameLatch.countDown() }
+        }
+        frameLatch.await(5, TimeUnit.SECONDS)
+
+        // Read updated screen state
+        val screenHolder = arrayOfNulls<String>(1)
+        val readLatch = CountDownLatch(1)
+        mainHandler.post {
+            try {
+                val screen = Flint.getScreenName() ?: "unknown"
+                val toolNames = Flint.registeredHandlers()
+                    .flatMap { it.describeTools() }
+                    .map { it.name }
+                val snapshot = FlintTreeWalker.snapshot()
+                screenHolder[0] = FlintTextRenderer.render(screen, toolNames, snapshot)
+            } finally {
+                readLatch.countDown()
+            }
+        }
+        readLatch.await(10, TimeUnit.SECONDS)
+
+        return screenHolder[0] ?: """{"error":"failed to read screen state"}"""
+    }
+
+    private fun parseValue(value: String): Any {
+        value.toIntOrNull()?.let { return it }
+        value.toLongOrNull()?.let { return it }
+        value.toDoubleOrNull()?.let { return it }
+        if (value == "true" || value == "false") return value.toBoolean()
+        return value
     }
 
     private fun handleInvokeActionJson(uri: Uri): String {

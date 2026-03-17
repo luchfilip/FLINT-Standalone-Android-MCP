@@ -64,6 +64,11 @@ fun SearchResultsContent(
     onBack: () -> Unit
 ) {
     Flint.screen("search_results")
+    Flint.tools {
+        tool("go_back", "Go back to previous screen") {
+            action { onBack(); null }
+        }
+    }
 
     Scaffold(
         topBar = {

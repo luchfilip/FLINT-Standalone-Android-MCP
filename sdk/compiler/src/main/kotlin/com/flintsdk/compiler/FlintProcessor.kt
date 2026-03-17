@@ -34,12 +34,15 @@ class FlintProcessor(private val environment: SymbolProcessorEnvironment) : Symb
 
             val tools = extractTools(symbol)
             allTools.addAll(tools)
-            allScreens.addAll(tools.map { it.target })
+            allScreens.addAll(tools.map { it.target }.filter { it.isNotEmpty() })
 
             generateRouter(symbol, tools)
         }
 
-        generateSchemaHolder(allTools, allScreens)
+        val generateSchemaHolder = environment.options["flint.generateSchemaHolder"]?.toBoolean() ?: true
+        if (generateSchemaHolder) {
+            generateSchemaHolder(allTools, allScreens)
+        }
         processed = true
         return emptyList()
     }
@@ -127,6 +130,8 @@ class FlintProcessor(private val environment: SymbolProcessorEnvironment) : Symb
             appendLine("package $packageName")
             appendLine()
             appendLine("import com.flintsdk.annotations.FlintToolHandler")
+            appendLine("import com.flintsdk.annotations.FlintToolDescriptor")
+            appendLine("import com.flintsdk.annotations.FlintParamDescriptor")
             appendLine()
             appendLine("class $routerClassName(private val host: $hostClassName) : FlintToolHandler {")
             appendLine("    override fun onToolCall(name: String, params: Map<String, Any?>): Map<String, Any?>? {")
@@ -149,13 +154,36 @@ class FlintProcessor(private val environment: SymbolProcessorEnvironment) : Symb
                     appendLine("                host.${tool.functionName}()")
                 }
 
-                appendLine("                mapOf(\"_target\" to \"${tool.target}\")")
+                if (tool.target.isNotEmpty()) {
+                    appendLine("                mapOf(\"_target\" to \"${tool.target}\")")
+                } else {
+                    appendLine("                mapOf(\"_ok\" to \"true\")")
+                }
                 appendLine("            }")
             }
 
             appendLine("            else -> null")
             appendLine("        }")
             appendLine("    }")
+            appendLine()
+            appendLine("    override fun describeTools(): List<FlintToolDescriptor> = listOf(")
+            for ((i, tool) in tools.withIndex()) {
+                val comma = if (i < tools.size - 1) "," else ""
+                appendLine("        FlintToolDescriptor(")
+                appendLine("            name = \"${tool.name}\",")
+                appendLine("            description = \"${tool.description.replace("\"", "\\\"")}\",")
+                if (tool.params.isNotEmpty()) {
+                    appendLine("            params = listOf(")
+                    for ((j, param) in tool.params.withIndex()) {
+                        val pComma = if (j < tool.params.size - 1) "," else ""
+                        val (jsonType, _) = kotlinTypeToJsonSchema(param.typeName)
+                        appendLine("                FlintParamDescriptor(name = \"${param.schemaName}\", type = \"$jsonType\", description = \"${param.description.replace("\"", "\\\"")}\", required = ${!param.hasDefault})$pComma")
+                    }
+                    appendLine("            )")
+                }
+                appendLine("        )$comma")
+            }
+            appendLine("    )")
             appendLine("}")
         }
 

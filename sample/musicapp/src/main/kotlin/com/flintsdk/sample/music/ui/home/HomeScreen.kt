@@ -45,7 +45,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun HomeScreen(
     onPlaylistClick: (String) -> Unit,
-    onSearchClick: () -> Unit,
+    onSearch: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,7 +57,7 @@ fun HomeScreen(
     HomeContent(
         uiState = uiState,
         onPlaylistClick = onPlaylistClick,
-        onSearchClick = onSearchClick
+        onSearch = onSearch
     )
 }
 
@@ -66,9 +66,27 @@ fun HomeScreen(
 fun HomeContent(
     uiState: HomeUiState,
     onPlaylistClick: (String) -> Unit,
-    onSearchClick: () -> Unit
+    onSearch: (String) -> Unit
 ) {
     Flint.screen("home")
+    Flint.tools {
+        tool("search", "Search for tracks. Opens search results screen.") {
+            param("query", "string", "Search query")
+            action { params ->
+                val query = params["query"] as String
+                onSearch(query)
+                null
+            }
+        }
+        tool("open_playlist", "Open a playlist by ID.") {
+            param("playlist_id", "string", "Playlist ID")
+            action { params ->
+                val id = params["playlist_id"] as String
+                onPlaylistClick(id)
+                null
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -79,7 +97,7 @@ fun HomeContent(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 actions = {
-                    IconButton(onClick = onSearchClick) {
+                    IconButton(onClick = { onSearch("all") }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search"

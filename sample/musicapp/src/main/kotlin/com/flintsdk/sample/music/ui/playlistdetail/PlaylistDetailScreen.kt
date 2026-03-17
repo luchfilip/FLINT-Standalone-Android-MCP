@@ -66,6 +66,11 @@ fun PlaylistDetailContent(
     onBack: () -> Unit
 ) {
     Flint.screen("playlist_detail")
+    Flint.tools {
+        tool("go_back", "Go back to previous screen") {
+            action { onBack(); null }
+        }
+    }
 
     Scaffold(
         topBar = {

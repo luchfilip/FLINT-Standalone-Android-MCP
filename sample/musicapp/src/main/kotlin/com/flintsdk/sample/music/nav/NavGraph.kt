@@ -43,8 +43,8 @@ fun NavGraph(navController: NavHostController) {
                     onPlaylistClick = { playlistId ->
                         navController.navigate(Playlist(playlistId = playlistId))
                     },
-                    onSearchClick = {
-                        navController.navigate(Search(query = "all"))
+                    onSearch = { query ->
+                        navController.navigate(Search(query = query))
                     }
                 )
             }
