@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import com.flintsdk.annotations.FlintToolHandler
+import com.flintsdk.server.FlintNetworkServer
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -21,14 +22,30 @@ object Flint {
     var adbMode: Boolean = false
         private set
 
+    var networkMode: Boolean = false
+        private set
+
+    var networkPort: Int = 6099
+        private set
+
     internal var currentScreen: String? = null
         private set
 
     private val handlers = CopyOnWriteArrayList<FlintToolHandler>()
 
-    fun init(context: Context, adbMode: Boolean = false) {
+    fun init(
+        context: Context,
+        adbMode: Boolean = false,
+        networkMode: Boolean = false,
+        networkPort: Int = 6099
+    ) {
         this.context = context.applicationContext
         this.adbMode = adbMode
+        this.networkMode = networkMode
+        this.networkPort = networkPort
+        if (networkMode) {
+            FlintNetworkServer.start(networkPort)
+        }
     }
 
     fun add(handler: FlintToolHandler) {
