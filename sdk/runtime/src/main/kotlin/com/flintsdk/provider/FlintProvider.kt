@@ -9,15 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.ParcelFileDescriptor
-import android.view.Choreographer
 import com.flintsdk.Flint
-import com.flintsdk.model.FlintScreenSnapshot
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonNull
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -33,7 +25,6 @@ import java.util.concurrent.TimeUnit
  */
 class FlintProvider : ContentProvider() {
 
-    private val json = Json { prettyPrint = true }
     private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(): Boolean = true
@@ -62,8 +53,7 @@ class FlintProvider : ContentProvider() {
     }
 
     private fun handleReadScreen(): Bundle {
-        val snapshot = FlintTreeWalker.snapshot()
-        val snapshotJson = json.encodeToString(FlintScreenSnapshot.serializer(), snapshot)
+        val snapshotJson = FlintRequestHandler.readScreenSnapshotJson()
         return Bundle().apply {
             putString("snapshot", snapshotJson)
         }
@@ -157,21 +147,15 @@ class FlintProvider : ContentProvider() {
     }
 
     private fun handleGetSchemaJson(): String {
-        return Flint.liveSchema()
+        return FlintRequestHandler.getSchema()
     }
 
     private fun handleGetScreenJson(): String {
-        val bundle = handleGetScreen()
-        return bundleToJson(bundle)
+        return FlintRequestHandler.getScreen()
     }
 
     private fun handleReadScreenJson(): String {
-        val screen = Flint.getScreenName() ?: "unknown"
-        val toolNames = Flint.registeredHandlers()
-            .flatMap { it.describeTools() }
-            .map { it.name }
-        val snapshot = FlintTreeWalker.snapshot()
-        return FlintTextRenderer.render(screen, toolNames, snapshot)
+        return FlintRequestHandler.readScreen()
     }
 
     private fun handleCallToolJson(uri: Uri): String {
@@ -182,102 +166,21 @@ class FlintProvider : ContentProvider() {
         for (name in uri.queryParameterNames) {
             if (name != "_tool") {
                 val value = uri.getQueryParameter(name) ?: continue
-                params[name] = parseValue(value)
+                params[name] = FlintRequestHandler.parseValue(value)
             }
         }
 
-        // Execute tool on main thread
-        val resultHolder = arrayOfNulls<Map<String, Any?>>(1)
-        val toolLatch = CountDownLatch(1)
-
-        mainHandler.post {
-            try {
-                resultHolder[0] = Flint.routeTool(toolName, params)
-            } finally {
-                toolLatch.countDown()
-            }
-        }
-
-        toolLatch.await(10, TimeUnit.SECONDS)
-        val result = resultHolder[0]
-            ?: return """{"error":"unknown tool: $toolName"}"""
-
-        // Wait one frame for Compose to settle after navigation
-        val frameLatch = CountDownLatch(1)
-        mainHandler.post {
-            Choreographer.getInstance().postFrameCallback { frameLatch.countDown() }
-        }
-        frameLatch.await(5, TimeUnit.SECONDS)
-
-        // Read updated screen state
-        val screenHolder = arrayOfNulls<String>(1)
-        val readLatch = CountDownLatch(1)
-        mainHandler.post {
-            try {
-                val screen = Flint.getScreenName() ?: "unknown"
-                val toolNames = Flint.registeredHandlers()
-                    .flatMap { it.describeTools() }
-                    .map { it.name }
-                val snapshot = FlintTreeWalker.snapshot()
-                screenHolder[0] = FlintTextRenderer.render(screen, toolNames, snapshot)
-            } finally {
-                readLatch.countDown()
-            }
-        }
-        readLatch.await(10, TimeUnit.SECONDS)
-
-        return screenHolder[0] ?: """{"error":"failed to read screen state"}"""
-    }
-
-    private fun parseValue(value: String): Any {
-        value.toIntOrNull()?.let { return it }
-        value.toLongOrNull()?.let { return it }
-        value.toDoubleOrNull()?.let { return it }
-        if (value == "true" || value == "false") return value.toBoolean()
-        return value
+        return FlintRequestHandler.callTool(toolName, params)
     }
 
     private fun handleInvokeActionJson(uri: Uri): String {
         val actionName = uri.getQueryParameter("_action")
             ?: return """{"error":"missing _action parameter"}"""
 
-        val extras = Bundle()
-        extras.putString("_action", actionName)
-        uri.getQueryParameter("_list_id")?.let { extras.putString("_list_id", it) }
-        uri.getQueryParameter("_item_index")?.let {
-            extras.putInt("_item_index", it.toInt())
-        }
+        val listId = uri.getQueryParameter("_list_id")
+        val itemIndex = uri.getQueryParameter("_item_index")?.toIntOrNull()
 
-        val result = handleInvokeAction(extras)
-        return bundleToJson(result)
-    }
-
-    private fun putParsedValue(bundle: Bundle, key: String, value: String) {
-        value.toIntOrNull()?.let { bundle.putInt(key, it); return }
-        value.toLongOrNull()?.let { bundle.putLong(key, it); return }
-        value.toDoubleOrNull()?.let { bundle.putDouble(key, it); return }
-        if (value == "true" || value == "false") { bundle.putBoolean(key, value.toBoolean()); return }
-        bundle.putString(key, value)
-    }
-
-    private fun bundleToJson(bundle: Bundle): String {
-        val map = mutableMapOf<String, JsonElement>()
-        for (key in bundle.keySet()) {
-            @Suppress("DEPRECATION")
-            val value = bundle.get(key)
-            map[key] = when (value) {
-                null -> JsonNull
-                is Boolean -> JsonPrimitive(value)
-                is Int -> JsonPrimitive(value)
-                is Long -> JsonPrimitive(value)
-                is Double -> JsonPrimitive(value)
-                is Float -> JsonPrimitive(value)
-                is String -> JsonPrimitive(value)
-                is ArrayList<*> -> JsonArray(value.map { JsonPrimitive(it?.toString()) })
-                else -> JsonPrimitive(value.toString())
-            }
-        }
-        return JsonObject(map).toString()
+        return FlintRequestHandler.invokeAction(actionName, listId, itemIndex)
     }
 
     private fun jsonToPfd(jsonString: String): ParcelFileDescriptor {
