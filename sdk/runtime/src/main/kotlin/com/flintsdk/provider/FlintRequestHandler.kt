@@ -92,7 +92,15 @@ internal object FlintRequestHandler {
         }
         readLatch.await(10, TimeUnit.SECONDS)
 
-        return screenHolder[0] ?: """{"error":"failed to read screen state"}"""
+        val screenState = screenHolder[0] ?: """{"error":"failed to read screen state"}"""
+
+        // Prepend tool result data to response so callers can parse tool-specific output
+        return if (result.isNotEmpty()) {
+            val resultLines = result.entries.joinToString("\n") { "${it.key}: ${it.value}" }
+            "$resultLines\n$screenState"
+        } else {
+            screenState
+        }
     }
 
     /**
