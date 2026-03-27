@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-23T18:36:37.611010Z",
+  "updated_at": "2026-03-23T18:42:13.271963Z",
+  "id": "ACP-50",
+  "uuid": "e8c0075b-d161-4d15-aae0-a3f854e57930",
+  "_version": 1,
+  "title": "Extract shared request handler from FlintProvider",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-010",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

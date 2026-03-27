@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-23T18:36:29.981611Z",
+  "updated_at": "2026-03-23T18:36:29.981640Z",
+  "id": "EPIC-010",
+  "_version": 1,
+  "title": "Network mode for FLINT SDK",
+  "description": "Add networkMode to Flint.init() — embedded Ktor HTTP server serving same endpoints as ContentProvider over WiFi. Enables FLINT control of release builds without ADB.",
+  "status": "draft",
+  "owner": "filipluch@gmail.com",
+  "labels": [],
+  "tickets": [
+    "ACP-50",
+    "ACP-51",
+    "ACP-52",
+    "ACP-53",
+    "ACP-54"
+  ],
+  "comments": [],
+  "comment_count": 0,
+  "attachments": [],
+  "attachment_count": 0,
+  "custom_fields": {}
+}

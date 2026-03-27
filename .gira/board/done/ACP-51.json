@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-23T18:36:38.530110Z",
+  "updated_at": "2026-03-23T18:42:14.064750Z",
+  "id": "ACP-51",
+  "uuid": "efa47827-029d-48ad-800a-045af8aa488b",
+  "_version": 1,
+  "title": "Add Ktor server dependencies to SDK runtime",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-010",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-23T18:36:41.039928Z",
+  "updated_at": "2026-03-23T18:36:41.039943Z",
+  "id": "ACP-54",
+  "uuid": "35cb68dd-5c9a-4d79-9455-419546e4165f",
+  "_version": 1,
+  "title": "Unit tests for FlintRequestHandler and FlintNetworkServer",
+  "description": "",
+  "status": "todo",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-010",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}
