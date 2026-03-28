@@ -40,7 +40,7 @@ function renderElement(element: FlintElement, lines: string[]): void {
       }
       break;
     case "action":
-      // Action elements are not rendered in text output
+      lines.push(`actions: ${element.name}`);
       break;
   }
 }
@@ -49,6 +49,9 @@ function renderListItem(item: FlintListItem, lines: string[]): void {
   const parts = Object.entries(item.content).map(
     ([key, value]) => `${key}: ${value}`
   );
+  if (item.actions.length > 0) {
+    parts.push(`actions: ${item.actions.map((a) => a.name).join(", ")}`);
+  }
   lines.push(`  [${item.index}] ${parts.join(" | ")}`);
 }
 

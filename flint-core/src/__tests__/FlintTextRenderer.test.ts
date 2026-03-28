@@ -177,8 +177,8 @@ describe("FlintTextRenderer", () => {
     const expected = [
       "screen: home",
       "playlists:",
-      "  [0] name: Chill Vibes | description: Relaxing tunes",
-      "  [1] name: Workout | description: High energy",
+      "  [0] name: Chill Vibes | description: Relaxing tunes | actions: play, delete",
+      "  [1] name: Workout | description: High energy | actions: play, delete",
       "tools: navigate, refresh",
     ].join("\n");
 
@@ -218,8 +218,8 @@ describe("FlintTextRenderer", () => {
       "screen: search_results",
       "query: jazz",
       "results:",
-      "  [0] title: Jazz Classics | artist: Various",
-      "  [1] title: Smooth Jazz | artist: Kenny G",
+      "  [0] title: Jazz Classics | artist: Various | actions: play",
+      "  [1] title: Smooth Jazz | artist: Kenny G | actions: play",
       "tools: search, play",
     ].join("\n");
 
