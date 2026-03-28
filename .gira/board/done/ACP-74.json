@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-27T21:56:32.614028Z",
+  "updated_at": "2026-03-27T22:35:52.524298Z",
+  "id": "ACP-74",
+  "uuid": "4101c0b9-d224-460c-af81-99e92ceaa3e4",
+  "_version": 1,
+  "title": "E2E test: CLI reads screen, calls tool, reads new screen",
+  "description": "Phase 4. End-to-end validation on real device (Pixel 6a). Using the CDP CLI tool against the sample app: read home screen, verify output matches expected format, call search tool, wait, read search results screen, verify new content. This proves the full stack works.",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-011",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

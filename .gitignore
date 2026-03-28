@@ -15,3 +15,5 @@ local.properties
 logs
 testResults/
 .mcp.json
+node_modules/
+.serena/

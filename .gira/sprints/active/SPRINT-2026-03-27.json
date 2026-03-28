@@ -1,0 +1,32 @@
+{
+  "created_at": "2026-03-27T21:56:40.399658Z",
+  "updated_at": "2026-03-27T16:56:59.068911Z",
+  "opt_version": 1,
+  "id": "SPRINT-2026-03-27",
+  "name": "RN SDK Sprint 1",
+  "goal": "Complete Phase 1 (Core pure TS) and Phase 2 (Hooks/Components)",
+  "start_date": "2026-03-27",
+  "end_date": "2026-04-09",
+  "status": "active",
+  "tickets": [
+    "ACP-55",
+    "ACP-56",
+    "ACP-57",
+    "ACP-58",
+    "ACP-59",
+    "ACP-60",
+    "ACP-61",
+    "ACP-62",
+    "ACP-63",
+    "ACP-64",
+    "ACP-65",
+    "ACP-66",
+    "ACP-67",
+    "ACP-68",
+    "ACP-69",
+    "ACP-70"
+  ],
+  "capacity": null,
+  "retrospective": null,
+  "initial_ticket_count": null
+}

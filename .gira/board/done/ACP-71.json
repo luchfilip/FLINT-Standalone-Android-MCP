@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-27T21:56:24.861767Z",
+  "updated_at": "2026-03-27T22:34:08.050581Z",
+  "id": "ACP-71",
+  "uuid": "2f1875d5-4422-4da1-aa78-bef704ef7ff0",
+  "_version": 1,
+  "title": "Sample RN app: scaffold with React Navigation (3-4 screens)",
+  "description": "Phase 4. Create a sample React Native app (bare RN, not Expo) mirroring the Compose sample music app. Screens: Home (playlist list), Search Results, Playlist Detail, Track Detail. Use FlintProvider + FlintNavigationContainer. Annotate all screens with Flint hooks/components. Must run on the connected Pixel 6a.",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-011",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

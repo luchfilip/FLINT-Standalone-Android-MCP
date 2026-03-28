@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-27T23:26:17.746401Z",
+  "updated_at": "2026-03-27T23:26:22.192309Z",
+  "id": "ACP-75",
+  "uuid": "c7c4b7f6-8663-48ce-976f-eee43de78a57",
+  "_version": 1,
+  "title": "Fix: scope registry content to active screen",
+  "description": "Stack-pushed screens accumulate content in the flat registry. Tag each entry with its owning screen. snapshot() filters to current screen only. Add FlintScreenContext so hooks know which screen they belong to. TDD: update existing tests, add new tests for scoping behavior.",
+  "status": "in_progress",
+  "type": "bug",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-011",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

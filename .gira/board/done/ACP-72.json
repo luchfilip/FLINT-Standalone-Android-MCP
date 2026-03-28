@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-27T21:56:27.528305Z",
+  "updated_at": "2026-03-27T22:34:08.808227Z",
+  "id": "ACP-72",
+  "uuid": "27416bf9-b7f5-4b0d-b9f0-d33f8c2e5752",
+  "_version": 1,
+  "title": "CDP validation: verify global.__flint__ works via Metro debugger",
+  "description": "Phase 4. With sample app running on Pixel 6a, connect to Metro CDP WebSocket. Verify: readScreen() returns correct text output, getSchema() returns valid JSON, callTool() triggers navigation, readScreen() after callTool shows new screen, invokeAction() works. Manual verification via wscat or similar.",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-011",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}
