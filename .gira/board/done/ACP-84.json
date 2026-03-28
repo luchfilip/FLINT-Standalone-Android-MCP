@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:49.826269Z",
+  "updated_at": "2026-03-28T05:03:19.270424Z",
+  "id": "ACP-84",
+  "uuid": "f9aafc13-bce2-4a36-a85c-0fa36fa756e3",
+  "_version": 1,
+  "title": "Update flint-react-native to re-export from flint-core",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:52:03.883031Z",
+  "updated_at": "2026-03-28T05:05:03.673636Z",
+  "id": "ACP-90",
+  "uuid": "709f1d01-49e8-4e8d-abf3-640b2fd1aaa5",
+  "_version": 1,
+  "title": "Create flint-web index.ts with all exports",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:51.308527Z",
+  "updated_at": "2026-03-28T05:03:20.317738Z",
+  "id": "ACP-85",
+  "uuid": "b7d95e96-000c-4d21-a6be-bb7ea2f5b094",
+  "_version": 1,
+  "title": "Verify flint-react-native tests still pass after core extraction",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

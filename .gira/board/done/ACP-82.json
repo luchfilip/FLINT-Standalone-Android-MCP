@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:47.732866Z",
+  "updated_at": "2026-03-28T04:57:56.982313Z",
+  "id": "ACP-82",
+  "uuid": "0985e32d-436a-4764-8c29-4447d4a0cb6d",
+  "_version": 1,
+  "title": "Move hooks (useFlintScreen, useFlintTools, useFlintList) to flint-core with tests",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

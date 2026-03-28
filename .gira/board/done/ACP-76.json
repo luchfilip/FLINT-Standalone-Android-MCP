@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:43.031263Z",
+  "updated_at": "2026-03-28T04:57:52.406506Z",
+  "id": "ACP-76",
+  "uuid": "a2a80420-7e60-4598-b148-a23a94fa0edb",
+  "_version": 1,
+  "title": "Set up flint-core package with package.json and tsconfig",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

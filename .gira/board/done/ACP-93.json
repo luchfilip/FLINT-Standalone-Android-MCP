@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:52:06.245845Z",
+  "updated_at": "2026-03-28T05:07:30.896191Z",
+  "id": "ACP-93",
+  "uuid": "021f7b14-e637-44d7-bd47-45ec1111a6ef",
+  "_version": 1,
+  "title": "Build sample app screens with Flint annotations",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

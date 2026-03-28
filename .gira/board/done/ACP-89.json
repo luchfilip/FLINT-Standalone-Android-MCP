@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:52:03.124425Z",
+  "updated_at": "2026-03-28T05:03:18.481447Z",
+  "id": "ACP-89",
+  "uuid": "a7cc88fe-dcbf-40da-9d34-9852f135a2dd",
+  "_version": 1,
+  "title": "Create FlintRouter for React Router v6 with tests",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:52:04.672333Z",
+  "updated_at": "2026-03-28T05:05:04.355299Z",
+  "id": "ACP-91",
+  "uuid": "4ec186a9-cf60-4ca2-87a9-063ecfebabe2",
+  "_version": 1,
+  "title": "Add flint-web integration test (provider + router + text + action)",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "medium",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

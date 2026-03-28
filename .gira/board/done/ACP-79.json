@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:45.333184Z",
+  "updated_at": "2026-03-28T04:57:54.764175Z",
+  "id": "ACP-79",
+  "uuid": "c9c7df77-7fa8-4a16-9c1a-9adfeb9a36b6",
+  "_version": 1,
+  "title": "Move FlintSchema to flint-core with tests",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:48.556456Z",
+  "updated_at": "2026-03-28T04:57:57.668118Z",
+  "id": "ACP-83",
+  "uuid": "95a7c170-c01e-4dca-8161-7760fa74f88b",
+  "_version": 1,
+  "title": "Move types.ts to flint-core",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}

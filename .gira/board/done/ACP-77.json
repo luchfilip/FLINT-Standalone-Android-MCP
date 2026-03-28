@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-03-28T04:51:43.790753Z",
+  "updated_at": "2026-03-28T04:57:53.150978Z",
+  "id": "ACP-77",
+  "uuid": "a9484b33-7117-4d0c-9437-5ea71b63beed",
+  "_version": 1,
+  "title": "Move FlintRegistry to flint-core with tests",
+  "description": "",
+  "status": "done",
+  "type": "task",
+  "priority": "high",
+  "labels": [],
+  "reporter": "filipluch@gmail.com",
+  "epic_id": "EPIC-012",
+  "blocked_by": [],
+  "blocks": [],
+  "comments": [],
+  "attachments": [],
+  "attachment_count": 0,
+  "comment_count": 0,
+  "order": 0,
+  "custom_fields": {}
+}
